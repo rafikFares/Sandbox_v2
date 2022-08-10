@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_box_hint">Cherchez ici</string>
+    <string name="username">Nom d\'utilisateur \'admin\'</string>
+    <string name="password">Mot de passe \'admin\'</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources tools:ignore="MissingTranslation" xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Sandbox</string>
+    <string name="app_name_debug">Sandbox-Debug</string>
+
+    <string name="message_exit">Are you sure you want to exit?</string>
+    <string name="login_button">Login</string>
+    <string name="login_error_message">Try \'admin\' \'admin\'</string>
+
+</resources>

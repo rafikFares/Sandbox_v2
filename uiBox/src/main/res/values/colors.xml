@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Design System -->
+    <color name="color_black">#000000</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_black_no_binary">#000000</color>
+    <color name="color_white_no_binary">#ffffff</color>
+    <color name="color_text_primary">#112b50</color>
+    <color name="color_text_secondary">#99112B50</color>
+    <color name="color_text_tertiary">#4D112B50</color>
+    <color name="color_red">#FF2A5A</color>
+    <color name="color_purple_20">#335C44DE</color>
+    <color name="color_text_inverted">#BBC1D3</color>
+    <color name="color_blue">#0B7CF8</color>
+
+</resources>

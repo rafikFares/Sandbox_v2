@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources tools:ignore="MissingTranslation" xmlns:tools="http://schemas.android.com/tools">
+    <string name="search_box_hint">Search Here</string>
+    <string name="username">Username \'admin\'</string>
+    <string name="password">Password \'admin\'</string>
+
+</resources>

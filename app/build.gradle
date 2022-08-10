@@ -1,0 +1,162 @@
+plugins {
+    id "com.android.application"
+    id "org.jetbrains.kotlin.android"
+    id "kotlin-android-extensions"
+    id "com.google.devtools.ksp"
+    id "kotlinx-serialization"
+    id "kotlin-kapt"
+}
+
+android {
+    signingConfigs {
+        release {
+            storeFile file("key/debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+        debug {
+            storeFile file("key/debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+    }
+
+    compileSdk rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.example.sandbox"
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            buildConfigField "String", "BASE_URL", RELEASE_BASE_URL
+            manifestPlaceholders = [appName: "@string/app_name"]
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+        debug {
+            buildConfigField "String", "BASE_URL", DEBUG_BASE_URL
+            manifestPlaceholders = [appName: "@string/app_name_debug"]
+            applicationIdSuffix ".debug"
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
+    }
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+        freeCompilerArgs += [
+                "-Xallow-jvm-ir-dependencies",
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+        ]
+    }
+
+    // Use KSP Generated sources
+    applicationVariants.all { variant ->
+        variant.sourceSets.java.each {
+            it.srcDirs += "build/generated/ksp/${variant.name}/kotlin"
+        }
+    }
+    bundle {
+        language {
+            enableSplit = true
+        }
+        density {
+            enableSplit = true
+        }
+        abi {
+            enableSplit = true
+        }
+    }
+}
+
+dependencies {
+
+    // uiBox
+    implementation project(':uiBox')
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$core_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+    // ui
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "com.google.android.material:material:$material_version"
+
+    // Koin for Android
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-annotations:$koin_ksp_version"
+    ksp "io.insert-koin:koin-ksp-compiler:$koin_ksp_version"
+
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:$datastore_version"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    // Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$converter_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version"
+
+    // splash screen
+    implementation "androidx.core:core-splashscreen:$splashscreen_version"
+
+    // coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // okhttp
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+
+    // Facebook shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
+
+    // Leak Canary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary_version"
+
+    // tests
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "io.mockk:mockk:1.12.1"
+    testImplementation "org.robolectric:robolectric:4.7.3"
+    testImplementation "androidx.test:core:1.4.0"
+    testImplementation "io.insert-koin:koin-test:3.2.0"
+    testImplementation "io.insert-koin:koin-test-junit4:3.2.0"
+    testImplementation "org.amshove.kluent:kluent:1.68"
+    testImplementation "org.amshove.kluent:kluent-android:1.68"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.7.10"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    // instrumentation test
+    androidTestImplementation "androidx.test:runner:1.5.0-alpha04"
+    androidTestImplementation "androidx.test:rules:1.4.1-alpha07"
+    androidTestImplementation "androidx.test.ext:junit:1.1.4-alpha07"
+    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.4-alpha07"
+    androidTestImplementation "androidx.test.ext:truth:1.5.0-alpha07"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.0-alpha07"
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Design System -->
+    <!-- Spacing -->
+    <dimen name="spacing_xxs">4dp</dimen>
+    <dimen name="spacing_xs">8dp</dimen>
+    <dimen name="spacing_s">12dp</dimen>
+    <dimen name="spacing_m">16dp</dimen>
+    <dimen name="spacing_l">20dp</dimen>
+    <dimen name="spacing_xl">24dp</dimen>
+    <dimen name="spacing_xxl">28dp</dimen>
+    <dimen name="spacing_xxl_2">32dp</dimen>
+    <dimen name="spacing_xxl_3">36dp</dimen>
+    <dimen name="spacing_xxl_4">40dp</dimen>
+    <dimen name="spacing_xxl_5">44dp</dimen>
+
+    <!-- Elevation -->
+    <dimen name="elevation_6">6dp</dimen>
+    <dimen name="elevation_12">12dp</dimen>
+    <dimen name="elevation_18">18dp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radius_5">5dp</dimen>
+    <dimen name="radius_10">10dp</dimen>
+    <dimen name="radius_15">15dp</dimen>
+    <dimen name="radius_20">20dp</dimen>
+    <dimen name="radius_25">25dp</dimen>
+
+</resources>

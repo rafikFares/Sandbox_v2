@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_exit">Êtes-vous sûr de vouloir quitter?</string>
+    <string name="login_button">Connexion</string>
+    <string name="login_error_message">Essayez \'admin\' \'admin\'</string>
+
+</resources>
