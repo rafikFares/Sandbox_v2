@@ -29,8 +29,14 @@ class LocalRepositoryImpl(
         return Either.Success(emptyList())
     }
 
-    override suspend fun retrieveItems(range: IntRange): Either<SandboxException, List<ItemEntity>> {
-        return Either.Success(emptyList())
+    override suspend fun retrieveItems(range: IntRange): Either<SandboxException, List<ItemEntity>> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                val itemEntityTmp = itemDao.retrieveAllItemsInRange(range)
+                Either.Success(itemEntityTmp)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Either.Failure(SandboxException.DatabaseErrorException(e.message))
+            }
     }
-
 }

@@ -24,31 +24,26 @@ class ItemDaoImpl(private val realmDb: Realm) : ItemDao {
     }
 
     override suspend fun retrieveItem(itemId: Int): ItemEntity? {
-        return realmDb.write {
-            query<ItemEntity>("id == $0", itemId)
-                .first().find()
-        }
+        return realmDb.query<ItemEntity>("id == $0", itemId)
+            .first().find()
+
     }
 
-    override suspend fun retrieveAllItemsInRange(itemIds: List<Int>): List<ItemEntity> {
+    override suspend fun retrieveAllItemsInRange(itemIdRange: IntRange): List<ItemEntity> {
         val items = mutableListOf<ItemEntity>()
-        realmDb.write {
-            items.addAll(
-                query<ItemEntity>("id IN $0", itemIds)
-                    .find()
-            )
-        }
+        items.addAll(
+            realmDb.query<ItemEntity>("id > $0 AND id <= $1", itemIdRange.first, itemIdRange.last)
+                .find()
+        )
         return items
     }
 
     override suspend fun retrieveAllItems(): List<ItemEntity> {
         val items = mutableListOf<ItemEntity>()
-        realmDb.write {
-            items.addAll(
-                query<ItemEntity>()
-                    .find()
-            )
-        }
+        items.addAll(
+            realmDb.query<ItemEntity>()
+                .find()
+        )
         return items
     }
 }
