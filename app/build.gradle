@@ -122,6 +122,10 @@ dependencies {
     // splash screen
     implementation "androidx.core:core-splashscreen:$splashscreen_version"
 
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
+
     // coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
