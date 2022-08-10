@@ -30,11 +30,12 @@ class LoginViewModel(private val userAuthenticator: UserAuthenticator) : BaseVie
             val result = userAuthenticator.login(user)
             when (result) {
                 is Either.Failure -> {
-                    log("Failurer", result.value)
+                    log("Failure", result.value)
                     _uiState.value = UiState.LoginError
                     handleFailure(result.value)
                 }
                 is Either.Success -> {
+                    log("Success")
                     _uiState.value = UiState.LoginSuccess
                 }
             }
