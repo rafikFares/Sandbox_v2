@@ -11,7 +11,7 @@ sealed interface Either<out F, out S> {
     /**
      * Applies failureTask if this is a Failure or successTask if this is a Success.
      */
-    fun fold(failureTask: (F) -> Any, successTask: (S) -> Any): Any =
+    fun fold(failureTask: (F) -> Any, successTask: (S) -> Any) =
         when (this) {
             is Failure -> failureTask(value)
             is Success -> successTask(value)
