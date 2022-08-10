@@ -3,6 +3,7 @@ plugins {
     id "org.jetbrains.kotlin.android"
     id "kotlin-android-extensions"
     id "com.google.devtools.ksp"
+    id "io.realm.kotlin"
     id "kotlinx-serialization"
     id "kotlin-kapt"
 }
@@ -122,9 +123,11 @@ dependencies {
     // splash screen
     implementation "androidx.core:core-splashscreen:$splashscreen_version"
 
-    // Room
-    implementation "androidx.room:room-runtime:$room_version"
-    ksp "androidx.room:room-compiler:$room_version"
+    // Pagging
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
+    // realm
+    implementation "io.realm.kotlin:library-base:$realm_version"
 
     // coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
