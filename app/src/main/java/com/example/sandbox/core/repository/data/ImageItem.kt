@@ -3,11 +3,11 @@ package com.example.sandbox.core.repository.data
 import com.example.sandbox.core.utils.empty
 
 data class ImageItem(
-    val albumId: Int = 0,
-    val id: Int = 0,
-    val thumbnailUrl: String = "",
-    val title: String = "",
-    val url: String = ""
+    val albumId: Int,
+    val id: Int,
+    val thumbnailUrl: String,
+    val title: String,
+    val url: String
 ) {
     companion object {
         val Empty = ImageItem(
