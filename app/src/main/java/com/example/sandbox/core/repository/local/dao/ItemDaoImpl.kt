@@ -32,7 +32,16 @@ class ItemDaoImpl(private val realmDb: Realm) : ItemDao {
     override suspend fun retrieveAllItemsInRange(itemIdRange: IntRange): List<ItemEntity> {
         val items = mutableListOf<ItemEntity>()
         items.addAll(
-            realmDb.query<ItemEntity>("id > $0 AND id <= $1", itemIdRange.first, itemIdRange.last)
+            realmDb.query<ItemEntity>("id >= $0 AND id < $1", itemIdRange.first, itemIdRange.last)
+                .find()
+        )
+        return items
+    }
+
+    override suspend fun retrieveAllItemsOfAlbum(albumId: Int): List<ItemEntity> {
+        val items = mutableListOf<ItemEntity>()
+        items.addAll(
+            realmDb.query<ItemEntity>("albumId == $0", albumId)
                 .find()
         )
         return items

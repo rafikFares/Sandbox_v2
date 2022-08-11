@@ -11,6 +11,9 @@ data class ApiItem(
     val title: String = "",
     val url: String = ""
 ) {
+    /**
+     * Convert Network results to database objects
+     */
     fun toItemEntity(): ItemEntity {
         val itemEntity = ItemEntity()
         itemEntity.albumId = albumId

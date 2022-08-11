@@ -88,7 +88,7 @@ class HomeViewModel(
 
     override fun log(message: String, exception: Exception?) {
         if (BuildConfig.DEBUG) {
-            Log.d("GitHubItemsViewModel", message, exception)
+            Log.d("HomeViewModel", message, exception)
         }
     }
 }

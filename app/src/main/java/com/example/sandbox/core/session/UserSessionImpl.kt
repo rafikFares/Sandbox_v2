@@ -12,10 +12,10 @@ class UserSessionImpl(
 ) : UserSession {
 
     override suspend fun isUserLoggedIn(): Boolean {
-        val token: String? = preferenceRepository.get(PreferenceKey.UserToken, "") as? String
+        val token: String = preferenceRepository.get(PreferenceKey.UserToken, "") as String
 
         return suspendCancellableCoroutine<Boolean> { contiunuation ->
-            val tokenIsValid = !token.isNullOrEmpty()
+            val tokenIsValid = token.isNotEmpty()
             if (contiunuation.isActive)
                 contiunuation.resume(tokenIsValid)
         }

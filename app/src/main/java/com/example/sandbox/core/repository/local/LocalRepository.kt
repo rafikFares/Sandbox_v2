@@ -8,4 +8,6 @@ interface LocalRepository {
     suspend fun insertItems(items: List<ItemEntity>): Either<SandboxException, Boolean>
     suspend fun retrieveItems(from: Int = 0, to: Int): Either<SandboxException, List<ItemEntity>>
     suspend fun retrieveItems(range: IntRange): Either<SandboxException, List<ItemEntity>>
+    suspend fun retrieveItemsOfAlbum(albumId: Int): Either<SandboxException, List<ItemEntity>>
+    suspend fun retrieveAlbums(): Either<SandboxException, Map<Int, Int>>
 }
