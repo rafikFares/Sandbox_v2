@@ -12,9 +12,8 @@ import com.example.sandbox.BuildConfig
 import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.repository.data.ImageItem
 import com.example.sandbox.core.repository.local.LocalRepository
-import com.example.sandbox.core.repository.local.pagging.ItemPagingSource
-import com.example.sandbox.core.repository.local.pagging.ItemPagingSource.Companion.ITEMS_PER_PAGE
-import com.example.sandbox.core.repository.remote.model.ApiItem
+import com.example.sandbox.core.pagging.ImageItemPagingSource
+import com.example.sandbox.core.pagging.ParentPagingSource.Companion.ITEMS_PER_PAGE
 import com.example.sandbox.core.usecase.FetchAndStoreItemsUseCase
 import com.example.sandbox.main.platform.BaseViewModel
 import kotlinx.coroutines.flow.Flow
@@ -28,7 +27,6 @@ private const val SEARCH_PARAMS = "technical-test.json"
 @KoinViewModel(binds = [HomeViewModel::class])
 class HomeViewModel(
     private val fetchAndStoreItemsUseCase: FetchAndStoreItemsUseCase,
-    private val localRepository: LocalRepository
 ) : BaseViewModel() {
 
     sealed interface UiState : BaseUiState {
@@ -36,28 +34,13 @@ class HomeViewModel(
         object Complete : UiState
         object Loading : UiState
         data class Error(val exception: SandboxException) : UiState
-        object ItemClick : UiState
     }
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Init)
     override val uiState: StateFlow<BaseUiState> = _uiState
 
-    private val _pagingSource = MutableLiveData<ItemPagingSource>()
-
-    private val pagingSourceFactory = {
-        val itemPagingSource = ItemPagingSource(localRepository)
-        _pagingSource.value = itemPagingSource
-        itemPagingSource
-    }
-
-    val items: Flow<PagingData<ImageItem>> = Pager(
-        config = PagingConfig(pageSize = ITEMS_PER_PAGE, enablePlaceholders = false),
-        pagingSourceFactory = pagingSourceFactory
-    ).flow.cachedIn(viewModelScope)
-
     override fun onCreate(owner: LifecycleOwner) {
         println(">>>>>>>>>>> onCreate")
-
         loadData(SEARCH_PARAMS) // default with "text" as string
     }
 
@@ -72,7 +55,6 @@ class HomeViewModel(
     private fun handleSuccess(success: Boolean) {
         log("handleSuccess count : $success")
         updateUiState(UiState.Complete)
-        _pagingSource.value?.invalidate()
     }
 
     override fun handleFailure(failure: SandboxException) {
