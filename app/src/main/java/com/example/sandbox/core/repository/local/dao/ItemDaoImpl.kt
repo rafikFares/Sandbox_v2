@@ -4,10 +4,14 @@ import com.example.sandbox.core.repository.local.entity.ItemEntity
 import io.realm.kotlin.Realm
 import io.realm.kotlin.UpdatePolicy
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.notifications.RealmChange
+import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Single
 
 @Single
 class ItemDaoImpl(private val realmDb: Realm) : ItemDao {
+
+    override fun observeRealmUpdates(): Flow<RealmChange<Realm>> = realmDb.asFlow()
 
     override suspend fun insertItem(itemEntity: ItemEntity) {
         realmDb.write {

@@ -4,7 +4,11 @@ import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.repository.local.dao.ItemDao
 import com.example.sandbox.core.repository.local.entity.ItemEntity
 import com.example.sandbox.core.utils.Either
+import io.realm.kotlin.notifications.InitialRealm
+import io.realm.kotlin.notifications.UpdatedRealm
 import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
@@ -14,6 +18,14 @@ class LocalRepositoryImpl(
     private val itemDao: ItemDao,
     @Named("Dispatchers.IO") private val ioDispatcher: CoroutineContext
 ) : LocalRepository {
+
+    override fun observeDataState(): Flow<LocalRepository.DataState> =
+        itemDao.observeRealmUpdates().map { realmChange ->
+            when (realmChange) {
+                is InitialRealm -> LocalRepository.DataState.Initialized
+                is UpdatedRealm -> LocalRepository.DataState.Updated
+            }
+        }
 
     /**
      * insert items
