@@ -7,6 +7,7 @@ interface ItemDao {
     suspend fun insertItems(itemEntities: List<ItemEntity>)
     suspend fun retrieveItem(itemId: Int): ItemEntity?
     suspend fun retrieveAllItemsInRange(itemIdRange: IntRange): List<ItemEntity>
+    suspend fun retrieveAllAlbumsInRange(albumIdRange: IntRange): List<ItemEntity>
     suspend fun retrieveAllItemsOfAlbum(albumId: Int): List<ItemEntity>
     suspend fun retrieveAllItems(): List<ItemEntity>
 }

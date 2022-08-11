@@ -48,6 +48,22 @@ class LocalRepositoryImpl(
         }
 
     /**
+     * used for pagination, returns all albums in range id
+     */
+    override suspend fun retrieveAlbums(range: IntRange): Either<SandboxException, Map<Int, Int>> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                val itemEntityTmp = itemDao.retrieveAllAlbumsInRange(range)
+                    .groupingBy { it.albumId }
+                    .eachCount()
+                Either.Success(itemEntityTmp)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Either.Failure(SandboxException.DatabaseErrorException(e.message))
+            }
+        }
+
+    /**
      * return all items of an album
      */
     override suspend fun retrieveItemsOfAlbum(albumId: Int): Either<SandboxException, List<ItemEntity>> =

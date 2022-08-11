@@ -1,30 +1,32 @@
-package com.example.sandbox.core.repository.local.pagging
+package com.example.sandbox.core.pagging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.sandbox.core.repository.data.ImageItem
-import com.example.sandbox.core.repository.local.LocalRepository
+import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.utils.Either
 import kotlin.math.max
 
-class ItemPagingSource(private val localRepository: LocalRepository) : PagingSource<Int, ImageItem>() {
+abstract class ParentPagingSource<T : Any> : PagingSource<Int, T>() {
 
-    override fun getRefreshKey(state: PagingState<Int, ImageItem>): Int? {
+    abstract fun getRefreshKeyForItem(item: T): Int?
+    abstract suspend fun loadData(intRange: IntRange): Either<SandboxException, List<T>>
+
+    override fun getRefreshKey(state: PagingState<Int, T>): Int? {
         // In our case we grab the item closest to the anchor position
         // then return its id - ITEMS_PER_PAGE as a buffer
         val anchorPosition = state.anchorPosition ?: return null
         val item = state.closestItemToPosition(anchorPosition) ?: return null
-        return ensureValidKey(key = item.id - ITEMS_PER_PAGE)
+        return getRefreshKeyForItem(item)
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ImageItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
         // Start paging with the STARTING_KEY if this is the first load
         val start = params.key ?: STARTING_KEY
 
         // Load as many items as hinted by params.loadSize
         val range = start.until(start + params.loadSize)
 
-        val result = localRepository.retrieveItems(range)
+        val result = loadData(range)
 
         return when (result) {
             is Either.Failure -> {
@@ -36,7 +38,7 @@ class ItemPagingSource(private val localRepository: LocalRepository) : PagingSou
 
                 val nextKey = if (result.value.isNotEmpty()) start + result.value.size else null
 
-                val data = result.value.map { it.toImageItem() }
+                val data = result.value
 
                 LoadResult.Page(
                     data = data,
@@ -50,7 +52,7 @@ class ItemPagingSource(private val localRepository: LocalRepository) : PagingSou
     /**
      * Makes sure the paging key is never less than [STARTING_KEY]
      */
-    private fun ensureValidKey(key: Int) = max(STARTING_KEY, key)
+    protected fun ensureValidKey(key: Int) = max(STARTING_KEY, key)
 
     companion object {
         private const val STARTING_KEY = 0
