@@ -36,8 +36,6 @@ class HomeActivity : BaseAppcompatActivity() {
 
     private fun initActions() {
         lifecycleScope.launch {
-            // We repeat on the STARTED lifecycle because an Activity may be PAUSED
-            // but still visible on the screen, for example in a multi window app
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.items.collectLatest {
                     imageAdapter.submitData(it)

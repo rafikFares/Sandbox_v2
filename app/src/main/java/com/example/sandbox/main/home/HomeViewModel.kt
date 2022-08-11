@@ -69,8 +69,8 @@ class HomeViewModel(
         }
     }
 
-    private fun handleSuccess(successData: List<ApiItem>) {
-        log("handleSuccess count : ${successData.count()}")
+    private fun handleSuccess(success: Boolean) {
+        log("handleSuccess count : $success")
         updateUiState(UiState.Complete)
         _pagingSource.value?.invalidate()
     }

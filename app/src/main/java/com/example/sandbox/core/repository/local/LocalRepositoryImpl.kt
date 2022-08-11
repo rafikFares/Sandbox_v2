@@ -30,7 +30,7 @@ class LocalRepositoryImpl(
         }
 
     override suspend fun retrieveItems(from: Int, to: Int): Either<SandboxException, List<ItemEntity>> {
-        return retrieveItems(from.until(to))
+        return retrieveItems(IntRange(from, to))
     }
 
     /**

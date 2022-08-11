@@ -6,13 +6,12 @@ import com.example.sandbox.core.repository.local.LocalRepository
 import com.example.sandbox.core.repository.preference.PreferenceRepository
 import com.example.sandbox.core.repository.preference.key.PreferenceKey
 import com.example.sandbox.core.repository.remote.RemoteRepository
-import com.example.sandbox.core.repository.remote.model.ApiItem
 import com.example.sandbox.core.utils.Either
 import com.example.sandbox.core.utils.ifIsSuccessThan
-import kotlinx.datetime.LocalDateTime
+import java.time.Instant
 import org.koin.core.annotation.Single
 
-private const val CACHE_TIMEOUT = 60 * 60 * 1000 // 1 hour
+private const val CACHE_TIMEOUT = 60 * 60 // 1 hour
 
 @Single
 class FetchAndStoreItemsUseCase(
@@ -23,7 +22,7 @@ class FetchAndStoreItemsUseCase(
 
     override suspend fun run(params: String?): Either<SandboxException, Boolean> {
         val lastTimeFetchInMillis = preferenceRepository.get(PreferenceKey.LastFetch, 0L) as Long
-        val currentTime = System.currentTimeMillis()
+        val currentTime = Instant.now().epochSecond
 
         if (currentTime - lastTimeFetchInMillis > CACHE_TIMEOUT) {
             println(">>>>>>>>>>>>>>>>>>> fetching")
@@ -34,9 +33,8 @@ class FetchAndStoreItemsUseCase(
                     it.toItemEntity()
                 }.also {
                     println(">>>>>>>>>>>>>>>>>>> size = ${it.size}")
-                    localRepository.insertItems(it)
+                    return localRepository.insertItems(it)
                 }
-                return Either.Success(true)
             }
             return result as Either.Failure
         }
