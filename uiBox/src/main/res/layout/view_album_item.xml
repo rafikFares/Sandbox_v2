@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/albumIcon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/color_purple_20"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:round="16dp" />
+
+    <TextView
+        android:id="@+id/albumId"
+        style="@style/Body.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_s"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/color_text_primary"
+        app:layout_constraintBottom_toTopOf="@id/albumItemsCount"
+        app:layout_constraintEnd_toEndOf="@id/albumIcon"
+        app:layout_constraintStart_toStartOf="@id/albumIcon"
+        app:layout_constraintTop_toTopOf="@id/albumIcon"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Android" />
+
+    <TextView
+        android:id="@+id/albumItemsCount"
+        style="@style/SmallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_s"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/color_text_tertiary"
+        app:layout_constraintBottom_toBottomOf="@id/albumIcon"
+        app:layout_constraintEnd_toEndOf="@id/albumIcon"
+        app:layout_constraintStart_toStartOf="@id/albumIcon"
+        app:layout_constraintTop_toBottomOf="@id/albumId"
+        tools:text="Kotlin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,8 +7,8 @@ fun View.animateClick(endTask: (() -> Unit)? = null) {
     apply {
         animate()
             .setDuration(100L)
-            .scaleX(1.3f)
-            .scaleY(1.3f)
+            .scaleX(1.1f)
+            .scaleY(1.1f)
             .withEndAction {
                 this.scaleX = 1f
                 this.scaleY = 1f
