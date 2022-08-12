@@ -5,6 +5,7 @@ plugins {
     id "com.google.devtools.ksp"
     id "io.realm.kotlin"
     id "kotlinx-serialization"
+    id "kotlin-kapt"
 }
 
 android {
@@ -107,6 +108,10 @@ dependencies {
     implementation "io.insert-koin:koin-annotations:$koin_ksp_version"
     ksp "io.insert-koin:koin-ksp-compiler:$koin_ksp_version"
 
+    // activity
+    implementation "androidx.activity:activity-ktx:1.5.1"
+    implementation "androidx.fragment:fragment-ktx:1.5.2"
+
     // DataStore
     implementation "androidx.datastore:datastore-preferences:$datastore_version"
 
@@ -122,7 +127,8 @@ dependencies {
     implementation "androidx.core:core-splashscreen:$splashscreen_version"
 
     // Pagging
-    implementation "androidx.paging:paging-runtime:$paging_version"
+    testImplementation "androidx.paging:paging-common-ktx:$paging_version"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -133,6 +139,7 @@ dependencies {
 
     // coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
 
     // okhttp
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
@@ -148,7 +155,7 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottie_version"
 
     // Leak Canary
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary_version"
+    // debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary_version"
 
     // tests
     testImplementation "junit:junit:4.13.2"

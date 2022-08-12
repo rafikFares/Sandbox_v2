@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/transparent">
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/albumIcon"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/color_purple_20"
+        android:background="@color/color_text_secondary"
+        android:alpha="0.8"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"

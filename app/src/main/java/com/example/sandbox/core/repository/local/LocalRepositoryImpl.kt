@@ -19,6 +19,9 @@ class LocalRepositoryImpl(
     @Named("Dispatchers.IO") private val ioDispatcher: CoroutineContext
 ) : LocalRepository {
 
+    /**
+     * observe DB updates
+     */
     override fun observeDataState(): Flow<LocalRepository.DataState> =
         itemDao.observeRealmUpdates().map { realmChange ->
             when (realmChange) {

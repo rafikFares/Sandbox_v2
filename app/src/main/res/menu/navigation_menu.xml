@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/albumFragment"
+        android:title="album"
+        android:icon="@drawable/ic_baseline_album" />
+
+    <item android:id="@+id/imageFragment"
+        android:title="image"
+        android:icon="@drawable/ic_baseline_image" />
+</menu>

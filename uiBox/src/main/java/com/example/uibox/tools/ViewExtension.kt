@@ -3,12 +3,16 @@ package com.example.uibox.tools
 import android.os.SystemClock
 import android.view.View
 
-fun View.animateClick(endTask: (() -> Unit)? = null) {
+enum class ScaleType(val value: Float) {
+    Small(1.1F), Medium(1.2F), Big(1.3F), Extra(1.5F)
+}
+
+fun View.animateClick(scaleType: ScaleType = ScaleType.Small, endTask: (() -> Unit)? = null) {
     apply {
         animate()
             .setDuration(100L)
-            .scaleX(1.1f)
-            .scaleY(1.1f)
+            .scaleX(scaleType.value)
+            .scaleY(scaleType.value)
             .withEndAction {
                 this.scaleX = 1f
                 this.scaleY = 1f

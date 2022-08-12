@@ -3,11 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/imageFragment">
+    app:startDestination="@id/albumFragment">
 
     <fragment
         android:id="@+id/imageFragment"
         android:name="com.example.sandbox.main.image.ImageFragment"
-        android:label="imageFragment"
-        tools:layout="@layout/fragment_image" />
+        android:label="image"
+        tools:layout="@layout/fragment_image" >
+        <action
+            android:id="@+id/action_imageFragment_to_albumFragment"
+            app:destination="@id/albumFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.example.sandbox.main.album.AlbumFragment"
+        android:label="album"
+        tools:layout="@layout/fragment_album" >
+        <action
+            android:id="@+id/action_albumFragment_to_imageFragment"
+            app:destination="@id/imageFragment" />
+    </fragment>
 </navigation>

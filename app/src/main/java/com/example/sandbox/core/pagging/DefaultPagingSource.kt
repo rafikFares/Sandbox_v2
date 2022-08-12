@@ -6,17 +6,15 @@ import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.utils.Either
 import kotlin.math.max
 
-abstract class ParentPagingSource<T : Any> : PagingSource<Int, T>() {
+abstract class DefaultPagingSource<T : Any> : PagingSource<Int, T>() {
 
-    abstract fun getRefreshKeyForItem(item: T): Int?
     abstract suspend fun loadData(intRange: IntRange): Either<SandboxException, List<T>>
 
     override fun getRefreshKey(state: PagingState<Int, T>): Int? {
-        // In our case we grab the item closest to the anchor position
-        // then return its id - ITEMS_PER_PAGE as a buffer
-        val anchorPosition = state.anchorPosition ?: return null
-        val item = state.closestItemToPosition(anchorPosition) ?: return null
-        return getRefreshKeyForItem(item)
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(ITEMS_PER_PAGE)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(ITEMS_PER_PAGE)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
@@ -24,7 +22,7 @@ abstract class ParentPagingSource<T : Any> : PagingSource<Int, T>() {
         val start = params.key ?: STARTING_KEY
 
         // Load as many items as hinted by params.loadSize
-        val range = start.until(start + params.loadSize)
+        val range = IntRange(start, start + ITEMS_PER_PAGE)
 
         val result = loadData(range)
 
@@ -34,7 +32,7 @@ abstract class ParentPagingSource<T : Any> : PagingSource<Int, T>() {
             }
             is Either.Success -> {
                 // Make sure we don't try to load items behind the STARTING_KEY
-                val prevKey = if (start > 0) start - 1 else null
+                val prevKey = if (start > 0) ensureValidKey(start - result.value.size) else null
 
                 val nextKey = if (result.value.isNotEmpty()) start + result.value.size else null
 

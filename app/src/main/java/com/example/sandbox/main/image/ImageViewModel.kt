@@ -10,7 +10,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.sandbox.BuildConfig
 import com.example.sandbox.core.pagging.ImageItemPagingSource
-import com.example.sandbox.core.pagging.ParentPagingSource
+import com.example.sandbox.core.pagging.DefaultPagingSource
 import com.example.sandbox.core.repository.data.ImageItem
 import com.example.sandbox.core.repository.local.LocalRepository
 import com.example.sandbox.main.platform.BaseViewModel
@@ -35,7 +35,7 @@ class ImageViewModel(private val localRepository: LocalRepository) : BaseViewMod
     }
 
     val imagePager: Flow<PagingData<ImageItem>> = Pager(
-        config = PagingConfig(pageSize = ParentPagingSource.ITEMS_PER_PAGE, enablePlaceholders = false),
+        config = PagingConfig(pageSize = DefaultPagingSource.ITEMS_PER_PAGE, enablePlaceholders = false),
         pagingSourceFactory = pagingSourceFactory
     ).flow.cachedIn(viewModelScope)
 

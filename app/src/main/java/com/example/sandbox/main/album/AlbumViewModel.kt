@@ -9,9 +9,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.sandbox.BuildConfig
-import com.example.sandbox.core.pagging.ImageItemPagingSource
-import com.example.sandbox.core.pagging.ParentPagingSource
-import com.example.sandbox.core.repository.data.ImageItem
+import com.example.sandbox.core.pagging.AlbumItemPagingSource
+import com.example.sandbox.core.pagging.DefaultPagingSource
+import com.example.sandbox.core.repository.data.AlbumItem
 import com.example.sandbox.core.repository.local.LocalRepository
 import com.example.sandbox.main.platform.BaseViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,16 +26,16 @@ class AlbumViewModel(private val localRepository: LocalRepository) : BaseViewMod
     override val uiState: StateFlow<BaseUiState?>
         get() = TODO("Not yet implemented")
 
-    private val _albumItemsPagingSource = MutableLiveData<ImageItemPagingSource>()
+    private val _albumItemsPagingSource = MutableLiveData<AlbumItemPagingSource>()
 
     private val pagingSourceFactory = {
-        val imageItemPagingSource = ImageItemPagingSource(localRepository)
-        _albumItemsPagingSource.value = imageItemPagingSource
-        imageItemPagingSource
+        val albumItemPagingSource = AlbumItemPagingSource(localRepository)
+        _albumItemsPagingSource.value = albumItemPagingSource
+        albumItemPagingSource
     }
 
-    val albumPager: Flow<PagingData<ImageItem>> = Pager(
-        config = PagingConfig(pageSize = ParentPagingSource.ITEMS_PER_PAGE, enablePlaceholders = false),
+    val albumPager: Flow<PagingData<AlbumItem>> = Pager(
+        config = PagingConfig(pageSize = DefaultPagingSource.ITEMS_PER_PAGE, enablePlaceholders = false),
         pagingSourceFactory = pagingSourceFactory
     ).flow.cachedIn(viewModelScope)
 

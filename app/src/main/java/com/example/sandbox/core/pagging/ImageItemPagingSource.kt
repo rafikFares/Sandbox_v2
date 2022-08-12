@@ -7,9 +7,7 @@ import com.example.sandbox.core.utils.Either
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 
-class ImageItemPagingSource(private val localRepository: LocalRepository) : ParentPagingSource<ImageItem>() {
-    override fun getRefreshKeyForItem(item: ImageItem): Int =
-        ensureValidKey(key = item.id - ITEMS_PER_PAGE)
+class ImageItemPagingSource(private val localRepository: LocalRepository) : DefaultPagingSource<ImageItem>() {
 
     override suspend fun loadData(intRange: IntRange): Either<SandboxException, List<ImageItem>> {
         val result = localRepository.retrieveItems(intRange)

@@ -1,4 +1,4 @@
-package com.example.sandbox.main.image
+package com.example.sandbox.main.album
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,26 +10,26 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import com.example.sandbox.databinding.FragmentImageBinding
-import com.example.sandbox.main.image.adapter.ImageAdapter
-import com.example.sandbox.main.image.binding.initImageAdapter
+import com.example.sandbox.databinding.FragmentAlbumBinding
+import com.example.sandbox.main.album.adapter.AlbumAdapter
+import com.example.sandbox.main.album.binding.initAlbumAdapter
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ImageFragment: Fragment() {
+class AlbumFragment : Fragment() {
+    private val albumViewModel by viewModel<AlbumViewModel>()
 
-    private val imageViewModel by viewModel<ImageViewModel>()
+    private val albumAdapter: AlbumAdapter = AlbumAdapter()
 
-    private val imageAdapter : ImageAdapter = ImageAdapter()
-
-    private var _binding: FragmentImageBinding? = null
+    private var _binding: FragmentAlbumBinding? = null
     private val binding
         get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(imageViewModel)
+        lifecycle.addObserver(albumViewModel)
     }
 
     override fun onCreateView(
@@ -37,28 +37,28 @@ class ImageFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentImageBinding.inflate(inflater, container, false)
+        _binding = FragmentAlbumBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.imageListContainer.initImageAdapter(imageAdapter)
+        binding.albumListContainer.initAlbumAdapter(albumAdapter)
         initActions()
     }
 
     private fun initActions() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                imageViewModel.imagePager.collectLatest {
-                    imageAdapter.submitData(it)
+                albumViewModel.albumPager.collectLatest {
+                    albumAdapter.submitData(it)
                 }
             }
         }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                imageAdapter.loadStateFlow.collectLatest {
-                    binding.imageProgress.isVisible = it.source.append is LoadState.Loading || it.source.prepend is LoadState.Loading
+                albumAdapter.loadStateFlow.collectLatest {
+                    binding.albumProgress.isVisible = it.source.append is LoadState.Loading || it.source.prepend is LoadState.Loading
                 }
             }
         }

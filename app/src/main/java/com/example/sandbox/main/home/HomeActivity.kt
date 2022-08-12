@@ -4,6 +4,10 @@ import android.os.Bundle
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.sandbox.R
 import com.example.sandbox.databinding.ActivityHomeBinding
 import com.example.sandbox.main.platform.BaseAppcompatActivity
 import kotlinx.coroutines.launch
@@ -21,6 +25,9 @@ class HomeActivity : BaseAppcompatActivity() {
         setContentView(binding.root)
 
         lifecycle.addObserver(homeViewModel)
+
+        val navController: NavController = findNavController(R.id.navHostFragment)
+        binding.bottomNavigation.setupWithNavController(navController)
         initActions()
     }
 

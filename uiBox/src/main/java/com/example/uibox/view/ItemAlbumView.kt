@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.example.uibox.R
 import com.example.uibox.databinding.ViewAlbumItemBinding
+import com.example.uibox.tools.ScaleType
 import com.example.uibox.tools.StringSource
 import com.example.uibox.tools.StringSourceData
 import com.example.uibox.tools.animateClick
@@ -15,6 +16,7 @@ import com.example.uibox.tools.clickWithDebounce
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
+import com.squareup.picasso.Picasso
 
 class ItemAlbumView @JvmOverloads constructor(
     context: Context,
@@ -40,14 +42,14 @@ class ItemAlbumView @JvmOverloads constructor(
             .build()
     }
 
-    fun configure(imageData: AlbumData, clickAction: (AlbumData) -> Unit) {
+    fun configure(albumData: AlbumData, clickAction: (AlbumData) -> Unit) {
         with(binding) {
-            albumId.text = "$albumId"
-            albumItemsCount.applyStringSource(imageData.albumImagesCount)
+            albumId.text = "${albumData.albumId}"
+            albumItemsCount.applyStringSource(albumData.albumImagesCount)
         }
         clickWithDebounce {
-            binding.albumIcon.animateClick {
-                clickAction(imageData)
+            binding.albumId.animateClick(ScaleType.Extra) {
+                clickAction(albumData)
             }
         }
     }

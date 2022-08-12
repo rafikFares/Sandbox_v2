@@ -7,10 +7,7 @@ import com.example.sandbox.core.utils.Either
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 
-class AlbumItemPagingSource(private val localRepository: LocalRepository) : ParentPagingSource<AlbumItem>() {
-
-    override fun getRefreshKeyForItem(item: AlbumItem): Int =
-        ensureValidKey(key = item.albumId - ITEMS_PER_PAGE)
+class AlbumItemPagingSource(private val localRepository: LocalRepository) : DefaultPagingSource<AlbumItem>() {
 
     override suspend fun loadData(intRange: IntRange): Either<SandboxException, List<AlbumItem>> {
         val result = localRepository.retrieveAlbums(intRange)

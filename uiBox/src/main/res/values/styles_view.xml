@@ -28,4 +28,13 @@
         <item name="cornerSize">@dimen/radius_10</item>
     </style>
 
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorPrimary">@color/color_shrine_primary</item>
+        <item name="colorOnPrimary">@color/color_red</item>
+    </style>
+
 </resources>

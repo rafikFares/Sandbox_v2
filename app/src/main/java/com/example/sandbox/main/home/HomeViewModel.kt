@@ -2,21 +2,11 @@ package com.example.sandbox.main.home
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.example.sandbox.BuildConfig
 import com.example.sandbox.core.exception.SandboxException
-import com.example.sandbox.core.repository.data.ImageItem
-import com.example.sandbox.core.repository.local.LocalRepository
-import com.example.sandbox.core.pagging.ImageItemPagingSource
-import com.example.sandbox.core.pagging.ParentPagingSource.Companion.ITEMS_PER_PAGE
 import com.example.sandbox.core.usecase.FetchAndStoreItemsUseCase
 import com.example.sandbox.main.platform.BaseViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

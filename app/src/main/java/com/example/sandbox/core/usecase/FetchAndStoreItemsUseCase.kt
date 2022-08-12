@@ -7,6 +7,7 @@ import com.example.sandbox.core.repository.preference.PreferenceRepository
 import com.example.sandbox.core.repository.preference.key.PreferenceKey
 import com.example.sandbox.core.repository.remote.RemoteRepository
 import com.example.sandbox.core.utils.Either
+import com.example.sandbox.core.utils.currentTime
 import com.example.sandbox.core.utils.ifIsSuccessThan
 import java.time.Instant
 import org.koin.core.annotation.Single
@@ -22,7 +23,6 @@ class FetchAndStoreItemsUseCase(
 
     override suspend fun run(params: String?): Either<SandboxException, Boolean> {
         val lastTimeFetchInMillis = preferenceRepository.get(PreferenceKey.LastFetch, 0L) as Long
-        val currentTime = Instant.now().epochSecond
 
         if (currentTime - lastTimeFetchInMillis > CACHE_TIMEOUT) {
             println(">>>>>>>>>>>>>>>>>>> fetching")

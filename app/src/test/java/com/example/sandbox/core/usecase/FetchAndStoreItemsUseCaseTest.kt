@@ -8,14 +8,14 @@ import com.example.sandbox.core.repository.remote.RemoteRepository
 import com.example.sandbox.core.utils.Either
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import java.time.Clock
-import java.time.Instant
-import java.time.ZoneOffset
+import io.realm.kotlin.internal.platform.freeze
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.Clock
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeInstanceOf
 
@@ -23,6 +23,9 @@ import org.amshove.kluent.shouldBeInstanceOf
 @OptIn(ExperimentalCoroutinesApi::class)
 class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
     private lateinit var fetchAndStoreItemsUseCase: FetchAndStoreItemsUseCase
+
+    @MockK
+    private lateinit var clock: Clock.System
 
     @MockK
     private lateinit var remoteRepository: RemoteRepository
@@ -52,12 +55,11 @@ class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
 
     @Test
     fun fetchUpdateCache() = runTest {
-        Instant.now(
-            Clock.fixed(
-                Instant.parse("2022-08-11T12:34:01Z"), ZoneOffset.UTC
-            )
-        )
-        val currentTime = Instant.now().epochSecond
+        val currentTime = Clock.System.now().epochSeconds // real time
+        every {
+            clock.now().epochSeconds
+        } returns currentTime
+
         val lastTime = currentTime - 60 * 61 // 1 hour and 1 minute
 
         coEvery {
