@@ -11,7 +11,6 @@
 
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,6 +21,7 @@
             android:layout_height="0dp"
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,25 +43,26 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/containerLayout"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            tools:visibility="visible"
             android:layout_height="match_parent"
-            android:background="@color/color_overlay_background">
+            android:background="@color/color_overlay_background"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/bottomSheetContainer"
+                android:id="@+id/rightSheetContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="32dp"
+                android:paddingEnd="32dp"
                 app:behavior_hideable="true"
                 app:behavior_peekHeight="auto"
+                app:cardBackgroundColor="#FF0000"
                 app:cardElevation="@dimen/elevation_12"
-                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                app:layout_behavior="@string/right_sheet_behavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearance="@style/TopRoundedCard">
+                app:shapeAppearance="@style/LeftRoundedCard">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/bottomSheet"
@@ -87,8 +88,8 @@
                         android:scrollbars="none"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/back">
+                        app:layout_constraintStart_toEndOf="@id/back"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:id="@+id/albumImagesContainer"
@@ -107,3 +108,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
+

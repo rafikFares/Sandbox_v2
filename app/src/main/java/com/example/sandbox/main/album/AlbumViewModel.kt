@@ -29,7 +29,6 @@ class AlbumViewModel(private val localRepository: LocalRepository) : BaseViewMod
 
     sealed interface UiState : BaseUiState {
         object Init : UiState
-        data class Error(val exception: SandboxException) : UiState
         data class AlbumClick(val items: List<ImageItem>) : UiState
     }
 

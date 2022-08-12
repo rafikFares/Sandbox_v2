@@ -23,6 +23,14 @@
         <item name="cornerSizeTopRight">30dp</item>
     </style>
 
+    <style name="LeftRoundedCard" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
     <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/radius_10</item>
