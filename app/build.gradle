@@ -102,6 +102,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     implementation "com.google.android.material:material:$material_version"
+    implementation "com.github.OKatrych:RightSheetBehavior:$rightBottomSheet_version"
 
     // Koin for Android
     implementation "io.insert-koin:koin-android:$koin_version"

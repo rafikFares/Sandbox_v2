@@ -28,6 +28,7 @@ buildscript {
         realm_version = '1.0.2'
         paging_version = '3.1.1'
         nav_version = '2.5.1'
+        rightBottomSheet_version = '1.0'
     }
 }
 plugins {
