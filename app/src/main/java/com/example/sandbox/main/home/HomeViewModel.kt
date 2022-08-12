@@ -27,7 +27,7 @@ class HomeViewModel(
     }
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Init)
-    override val uiState: StateFlow<BaseUiState> = _uiState
+    override val uiState: StateFlow<UiState> = _uiState
 
     override fun onCreate(owner: LifecycleOwner) {
         println(">>>>>>>>>>> onCreate")

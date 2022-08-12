@@ -44,7 +44,7 @@ class LoginViewModelTest : BaseAndroidTest() {
 
         loginViewModel.login("test", "test")
         val successResult = loginViewModel.uiState.value
-        val errorResult = loginViewModel.failure.value
+        val errorResult = loginViewModel.failure.value!!.peekContent()
 
         successResult shouldBe LoginViewModel.UiState.LoginError
         errorResult shouldBe exception

@@ -34,7 +34,7 @@ class BaseViewModelTest : BaseAndroidTest() {
         viewModel.fail(exception)
 
         val failure = viewModel.failure
-        val error = viewModel.failure.value
+        val error = viewModel.failure.value!!.peekContent()
 
         failure shouldBeInstanceOf LiveData::class.java
         error shouldBe exception

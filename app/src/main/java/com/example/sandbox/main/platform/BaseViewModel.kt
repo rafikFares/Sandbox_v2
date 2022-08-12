@@ -12,13 +12,13 @@ abstract class BaseViewModel : ViewModel(), DefaultLifecycleObserver {
 
     abstract val uiState: StateFlow<BaseUiState?>
 
-    private val _failure: MutableLiveData<SandboxException> = MutableLiveData()
-    val failure: LiveData<SandboxException> = _failure
+    private val _failure: MutableLiveData<LifecycleEvent<SandboxException>> = MutableLiveData()
+    val failure: LiveData<LifecycleEvent<SandboxException>> = _failure
 
     protected abstract fun log(message: String, exception: Exception? = null)
 
     protected open fun handleFailure(failure: SandboxException) {
         log("handleFailure", failure)
-        _failure.value = failure
+        _failure.value = LifecycleEvent(failure)
     }
 }

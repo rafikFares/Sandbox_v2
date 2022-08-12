@@ -11,5 +11,6 @@
     <color name="color_purple_20">#336941E1</color>
     <color name="color_text_inverted">#1B253D</color>
     <color name="color_blue">#0474E6</color>
+    <color name="color_overlay_background">#CC1C243A</color>
 
 </resources>

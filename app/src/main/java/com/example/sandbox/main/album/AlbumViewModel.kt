@@ -9,13 +9,17 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.sandbox.BuildConfig
+import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.pagging.AlbumItemPagingSource
 import com.example.sandbox.core.pagging.DefaultPagingSource
 import com.example.sandbox.core.repository.data.AlbumItem
+import com.example.sandbox.core.repository.data.ImageItem
 import com.example.sandbox.core.repository.local.LocalRepository
+import com.example.sandbox.core.repository.local.entity.ItemEntity
 import com.example.sandbox.main.platform.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -23,8 +27,14 @@ import org.koin.android.annotation.KoinViewModel
 @KoinViewModel(binds = [AlbumViewModel::class])
 class AlbumViewModel(private val localRepository: LocalRepository) : BaseViewModel() {
 
-    override val uiState: StateFlow<BaseUiState?>
-        get() = TODO("Not yet implemented")
+    sealed interface UiState : BaseUiState {
+        object Init : UiState
+        data class Error(val exception: SandboxException) : UiState
+        data class AlbumClick(val items: List<ImageItem>) : UiState
+    }
+
+    private val _uiState = MutableStateFlow<UiState>(UiState.Init)
+    override val uiState: StateFlow<UiState> = _uiState
 
     private val _albumItemsPagingSource = MutableLiveData<AlbumItemPagingSource>()
 
@@ -51,5 +61,17 @@ class AlbumViewModel(private val localRepository: LocalRepository) : BaseViewMod
         if (BuildConfig.DEBUG) {
             Log.d("AlbumViewModel", message, exception)
         }
+    }
+
+    fun onAlbumClick(albumId: Int) {
+        viewModelScope.launch {
+            localRepository.retrieveItemsOfAlbum(albumId).fold(
+                ::handleFailure, ::handleAlbumItems
+            )
+        }
+    }
+
+    private fun handleAlbumItems(items: List<ItemEntity>) {
+        _uiState.value = UiState.AlbumClick(items.map { it.toImageItem() })
     }
 }

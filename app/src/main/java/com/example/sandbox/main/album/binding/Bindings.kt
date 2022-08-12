@@ -7,9 +7,10 @@ import com.example.sandbox.main.album.adapter.AlbumAdapter
 import com.example.sandbox.main.image.adapter.ImageAdapter
 import com.example.uibox.tools.SpaceItemDecoration
 
-@BindingAdapter("bind:initAlbumAdapter")
-fun RecyclerView.initAlbumAdapter(albumAdapter: AlbumAdapter) {
-    layoutManager = GridLayoutManager(context, 3)
+@BindingAdapter("bind:initAlbumAdapter", "bind:isPortraitMode")
+fun RecyclerView.initAlbumAdapter(albumAdapter: AlbumAdapter, isPortraitMode: Boolean = true) {
+    val spanCount = if (isPortraitMode) 3 else 6
+    layoutManager = GridLayoutManager(context, spanCount)
     addItemDecoration(
         SpaceItemDecoration(
         topDP = 6,
