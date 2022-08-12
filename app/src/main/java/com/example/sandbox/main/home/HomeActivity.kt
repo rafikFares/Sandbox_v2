@@ -9,7 +9,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.sandbox.R
 import com.example.sandbox.databinding.ActivityHomeBinding
+import com.example.sandbox.main.alert.DefaultAlert
 import com.example.sandbox.main.platform.BaseAppcompatActivity
+import com.example.sandbox.main.platform.EventObserver
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,6 +34,10 @@ class HomeActivity : BaseAppcompatActivity() {
     }
 
     private fun initActions() {
+        homeViewModel.failure.observe(this, EventObserver{
+            manageError(it)
+        })
+        
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
