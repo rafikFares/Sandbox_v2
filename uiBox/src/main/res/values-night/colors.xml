@@ -13,5 +13,7 @@
     <color name="color_blue">#0474E6</color>
     <color name="color_overlay_background">#CC1C243A</color>
     <color name="color_back">#BDC3D5</color>
+    <color name="color_green">#22F789</color>
+    <color name="color_orange">#F9853E</color>
 
 </resources>

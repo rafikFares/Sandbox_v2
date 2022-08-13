@@ -9,7 +9,6 @@ import com.example.sandbox.core.usecase.FetchAndStoreItemsUseCase
 import com.example.sandbox.main.platform.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 private const val SEARCH_PARAMS = "technical-test.json"
@@ -20,18 +19,17 @@ class HomeViewModel(
 ) : BaseViewModel() {
 
     sealed interface UiState : BaseUiState {
-        object Init : UiState
-        object Complete : UiState
+        object Updated : UiState
+        object AlreadyUpToDate : UiState
         object Loading : UiState
         data class Error(val exception: SandboxException) : UiState
     }
 
-    private val _uiState = MutableStateFlow<UiState>(UiState.Init)
-    override val uiState: StateFlow<UiState> = _uiState
+    private val _uiState = MutableStateFlow<UiState?>(null)
+    override val uiState: StateFlow<UiState?> = _uiState
 
     override fun onCreate(owner: LifecycleOwner) {
-        println(">>>>>>>>>>> onCreate")
-        loadData(SEARCH_PARAMS) // default with "text" as string
+        loadData(SEARCH_PARAMS) // default with "technical-test.json" as params
     }
 
     @Suppress("SameParameterValue")
@@ -44,7 +42,11 @@ class HomeViewModel(
 
     private fun handleSuccess(success: Boolean) {
         log("handleSuccess count : $success")
-        updateUiState(UiState.Complete)
+        if (success) {
+            updateUiState(UiState.Updated)
+        } else {
+            updateUiState(UiState.AlreadyUpToDate)
+        }
     }
 
     override fun handleFailure(failure: SandboxException) {
@@ -53,9 +55,12 @@ class HomeViewModel(
     }
 
     private fun updateUiState(newState: UiState) {
-        viewModelScope.launch {
-            _uiState.value = newState
-        }
+        _uiState.value = null // another solution to let state flow emit same value
+        _uiState.value = newState
+    }
+
+    fun refreshClick() {
+        loadData(SEARCH_PARAMS) // default with "technical-test.json" as params
     }
 
     override fun log(message: String, exception: Exception?) {

@@ -25,20 +25,18 @@ class FetchAndStoreItemsUseCase(
         val lastTimeFetchInMillis = preferenceRepository.get(PreferenceKey.LastFetch, 0L) as Long
 
         if (currentTime - lastTimeFetchInMillis > CACHE_TIMEOUT) {
-            println(">>>>>>>>>>>>>>>>>>> fetching")
-            preferenceRepository.save(PreferenceKey.LastFetch, currentTime)
             val result = remoteRepository.retrieveItems(params)
             result.ifIsSuccessThan { apiItems ->
                 apiItems.map {
                     it.toItemEntity()
                 }.also {
-                    println(">>>>>>>>>>>>>>>>>>> size = ${it.size}")
-                    return localRepository.insertItems(it)
+                    val insertResult = localRepository.insertItems(it)
+                    preferenceRepository.save(PreferenceKey.LastFetch, currentTime)
+                    return insertResult
                 }
             }
             return result as Either.Failure
         }
-        println(">>>>>>>>>>>>>>>>>>> no need to fetching")
         return Either.Success(false)
     }
 }

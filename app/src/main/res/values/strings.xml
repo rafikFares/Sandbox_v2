@@ -5,5 +5,7 @@
     <string name="message_exit">Are you sure you want to exit?</string>
     <string name="login_button">Login</string>
     <string name="login_error_message">Try \'admin\' \'admin\'</string>
+    <string name="already_up_to_data">Already up to date</string>
+    <string name="updated">Update success</string>
 
 </resources>
