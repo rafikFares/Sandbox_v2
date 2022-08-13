@@ -37,7 +37,7 @@ class HomeActivity : BaseAppcompatActivity() {
         homeViewModel.failure.observe(this, EventObserver{
             manageError(it)
         })
-        
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 

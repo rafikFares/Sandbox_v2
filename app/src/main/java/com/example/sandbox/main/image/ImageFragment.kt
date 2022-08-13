@@ -1,5 +1,6 @@
 package com.example.sandbox.main.image
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,15 +14,16 @@ import androidx.paging.LoadState
 import com.example.sandbox.databinding.FragmentImageBinding
 import com.example.sandbox.main.image.adapter.ImageAdapter
 import com.example.sandbox.main.image.binding.initImageAdapter
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ImageFragment: Fragment() {
+class ImageFragment : Fragment() {
 
     private val imageViewModel by viewModel<ImageViewModel>()
 
-    private val imageAdapter : ImageAdapter = ImageAdapter()
+    private lateinit var imageAdapter: ImageAdapter
 
     private var _binding: FragmentImageBinding? = null
     private val binding
@@ -30,6 +32,7 @@ class ImageFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(imageViewModel)
+        imageAdapter = ImageAdapter(imageViewModel)
     }
 
     override fun onCreateView(
@@ -38,6 +41,8 @@ class ImageFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentImageBinding.inflate(inflater, container, false)
+        binding.viewmodel = imageViewModel
+        binding.lifecycleOwner = this@ImageFragment
         return binding.root
     }
 
@@ -57,8 +62,24 @@ class ImageFragment: Fragment() {
         }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                imageAdapter.loadStateFlow.collectLatest {
-                    binding.imageProgress.isVisible = it.source.append is LoadState.Loading || it.source.prepend is LoadState.Loading
+                (imageAdapter.loadStateFlow as Flow).collect {
+                    binding.imageProgress.isVisible =
+                        it.source.append is LoadState.Loading || it.source.prepend is LoadState.Loading
+                }
+            }
+        }
+
+        fun setupFullImage(show: Boolean) {
+            val orientation = resources.configuration.orientation
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                binding.fullImage!!.isVisible = show
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                imageViewModel.uiState.collect {
+                    setupFullImage(it is ImageViewModel.UiState.ShowImage)
                 }
             }
         }

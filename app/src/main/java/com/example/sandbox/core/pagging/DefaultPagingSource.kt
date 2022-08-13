@@ -8,6 +8,9 @@ import kotlin.math.max
 
 abstract class DefaultPagingSource<T : Any> : PagingSource<Int, T>() {
 
+    override val keyReuseSupported: Boolean
+        get() = true
+
     abstract suspend fun loadData(intRange: IntRange): Either<SandboxException, List<T>>
 
     override fun getRefreshKey(state: PagingState<Int, T>): Int? {

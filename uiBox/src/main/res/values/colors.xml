@@ -16,5 +16,6 @@
     <color name="color_shrine_primary">#FEDBD0</color>
     <color name="color_shrine_secondary">#FEEAE6</color>
     <color name="color_overlay_background">#9910294B</color>
+    <color name="color_back">#14325E</color>
 
 </resources>

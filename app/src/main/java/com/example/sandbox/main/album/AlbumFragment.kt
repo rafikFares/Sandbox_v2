@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
 import eu.okatrych.rightsheet.RightSheetBehavior
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -145,7 +146,7 @@ class AlbumFragment : Fragment() {
         }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                albumAdapter.loadStateFlow.collectLatest {
+                (albumAdapter.loadStateFlow as Flow).collect {
                     binding.albumProgress.isVisible =
                         it.source.append is LoadState.Loading || it.source.prepend is LoadState.Loading
                 }
