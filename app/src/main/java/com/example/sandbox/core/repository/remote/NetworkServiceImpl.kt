@@ -3,7 +3,7 @@ package com.example.sandbox.core.repository.remote
 import com.example.sandbox.core.api.ServiceApi
 import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.platform.NetworkHandler
-import com.example.sandbox.core.repository.remote.model.ApiItem
+import com.example.sandbox.core.repository.remote.model.NetworkItem
 import com.example.sandbox.core.utils.Either
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.withContext
@@ -11,13 +11,13 @@ import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 
 @Single
-class RemoteRepositoryImpl(
+class NetworkServiceImpl(
     private val serviceApi: ServiceApi,
     private val networkHandler: NetworkHandler,
     @Named("Dispatchers.IO") private val ioDispatcher: CoroutineContext
-) : RemoteRepository {
+) : NetworkService {
 
-    override suspend fun retrieveItems(params: String?): Either<SandboxException, List<ApiItem>> =
+    override suspend fun retrieveItems(params: String?): Either<SandboxException, List<NetworkItem>> =
         withContext(ioDispatcher) {
             if (networkHandler.isNetworkAvailable()) {
                 try {

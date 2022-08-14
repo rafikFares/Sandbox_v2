@@ -5,7 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sandbox.core.repository.data.AlbumItem
+import com.example.sandbox.core.data.AlbumItem
 import com.example.sandbox.main.album.AlbumViewModel
 import com.example.uibox.tools.StringSource
 import com.example.uibox.view.ItemAlbumView

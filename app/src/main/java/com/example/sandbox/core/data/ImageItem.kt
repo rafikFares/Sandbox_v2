@@ -1,7 +1,10 @@
-package com.example.sandbox.core.repository.data
+package com.example.sandbox.core.data
 
 import com.example.sandbox.core.utils.empty
 
+/**
+ * External data layer representation of an ImageItem
+ */
 data class ImageItem(
     val albumId: Int,
     val id: Int,

@@ -21,8 +21,7 @@ class LoginViewModel(private val userAuthenticator: UserAuthenticator) : BaseVie
     }
 
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Init)
-    override val uiState: StateFlow<BaseUiState>
-        get() = _uiState
+    override val uiState: StateFlow<BaseUiState> = _uiState
 
     fun login(userName: String, password: String) {
         viewModelScope.launch {

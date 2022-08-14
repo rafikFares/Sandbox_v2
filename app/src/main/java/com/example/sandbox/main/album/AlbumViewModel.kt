@@ -9,13 +9,13 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.sandbox.BuildConfig
-import com.example.sandbox.core.exception.SandboxException
+import com.example.sandbox.core.data.AlbumItem
+import com.example.sandbox.core.data.ImageItem
 import com.example.sandbox.core.pagging.AlbumItemPagingSource
 import com.example.sandbox.core.pagging.DefaultPagingSource
-import com.example.sandbox.core.repository.data.AlbumItem
-import com.example.sandbox.core.repository.data.ImageItem
 import com.example.sandbox.core.repository.local.LocalRepository
 import com.example.sandbox.core.repository.local.entity.ItemEntity
+import com.example.sandbox.core.repository.local.entity.toImageItem
 import com.example.sandbox.main.platform.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -70,7 +70,7 @@ class AlbumViewModel(private val localRepository: LocalRepository) : BaseViewMod
         }
     }
 
-    private fun handleAlbumItems(items: List<ItemEntity>) {
-        _uiState.value = UiState.AlbumClick(items.map { it.toImageItem() })
+    private fun handleAlbumItems(items: List<ImageItem>) {
+        _uiState.value = UiState.AlbumClick(items)
     }
 }

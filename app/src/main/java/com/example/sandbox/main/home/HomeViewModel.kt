@@ -1,14 +1,14 @@
 package com.example.sandbox.main.home
 
 import android.util.Log
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import com.example.sandbox.BuildConfig
 import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.usecase.FetchAndStoreItemsUseCase
 import com.example.sandbox.main.platform.BaseViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 private const val SEARCH_PARAMS = "technical-test.json"
@@ -25,10 +25,10 @@ class HomeViewModel(
         data class Error(val exception: SandboxException) : UiState
     }
 
-    private val _uiState = MutableStateFlow<UiState?>(null)
-    override val uiState: StateFlow<UiState?> = _uiState
+    private val _uiState = MutableSharedFlow<UiState>()
+    override val uiState: SharedFlow<UiState> = _uiState
 
-    override fun onCreate(owner: LifecycleOwner) {
+    init {
         loadData(SEARCH_PARAMS) // default with "technical-test.json" as params
     }
 
@@ -55,8 +55,9 @@ class HomeViewModel(
     }
 
     private fun updateUiState(newState: UiState) {
-        _uiState.value = null // another solution to let state flow emit same value
-        _uiState.value = newState
+        viewModelScope.launch {
+            _uiState.emit(newState)
+        }
     }
 
     fun refreshClick() {

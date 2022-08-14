@@ -5,18 +5,19 @@ import com.example.sandbox.core.interactor.UseCase
 import com.example.sandbox.core.repository.local.LocalRepository
 import com.example.sandbox.core.repository.preference.PreferenceRepository
 import com.example.sandbox.core.repository.preference.key.PreferenceKey
-import com.example.sandbox.core.repository.remote.RemoteRepository
+import com.example.sandbox.core.repository.remote.NetworkService
+import com.example.sandbox.core.repository.remote.model.NetworkItem
+import com.example.sandbox.core.repository.remote.model.toItemEntity
 import com.example.sandbox.core.utils.Either
 import com.example.sandbox.core.utils.currentTime
 import com.example.sandbox.core.utils.ifIsSuccessThan
-import java.time.Instant
 import org.koin.core.annotation.Single
 
 private const val CACHE_TIMEOUT = 60 * 60 // 1 hour
 
 @Single
 class FetchAndStoreItemsUseCase(
-    private val remoteRepository: RemoteRepository,
+    private val networkService: NetworkService,
     private val localRepository: LocalRepository,
     private val preferenceRepository: PreferenceRepository
 ) : UseCase<Boolean, String>() { // Boolean : true if fetch is done // String : take a String as a params
@@ -25,15 +26,14 @@ class FetchAndStoreItemsUseCase(
         val lastTimeFetchInMillis = preferenceRepository.get(PreferenceKey.LastFetch, 0L) as Long
 
         if (currentTime - lastTimeFetchInMillis > CACHE_TIMEOUT) {
-            val result = remoteRepository.retrieveItems(params)
-            result.ifIsSuccessThan { apiItems ->
-                apiItems.map {
-                    it.toItemEntity()
-                }.also {
-                    val insertResult = localRepository.insertItems(it)
-                    preferenceRepository.save(PreferenceKey.LastFetch, currentTime)
-                    return insertResult
-                }
+            val result = networkService.retrieveItems(params)
+            result.ifIsSuccessThan { networkItems ->
+                networkItems.map(NetworkItem::toItemEntity)
+                    .also {
+                        val insertResult = localRepository.insertItems(it)
+                        preferenceRepository.save(PreferenceKey.LastFetch, currentTime)
+                        return insertResult
+                    }
             }
             return result as Either.Failure
         }

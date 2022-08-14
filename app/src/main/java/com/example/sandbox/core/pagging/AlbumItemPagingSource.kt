@@ -1,7 +1,7 @@
 package com.example.sandbox.core.pagging
 
 import com.example.sandbox.core.exception.SandboxException
-import com.example.sandbox.core.repository.data.AlbumItem
+import com.example.sandbox.core.data.AlbumItem
 import com.example.sandbox.core.repository.local.LocalRepository
 import com.example.sandbox.core.utils.Either
 import kotlin.coroutines.resume
@@ -17,7 +17,7 @@ class AlbumItemPagingSource(private val localRepository: LocalRepository) : Defa
                     continuation.resume(result as Either.Failure)
                 },
                 { data ->
-                    continuation.resume(Either.Success(data.map { AlbumItem(it.key, it.value) }))
+                    continuation.resume(Either.Success(data))
                 }
             )
         }

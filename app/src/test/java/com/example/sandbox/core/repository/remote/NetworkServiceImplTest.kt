@@ -16,7 +16,7 @@ import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeInstanceOf
 
 @ExperimentalCoroutinesApi
-class RemoteRepositoryImplTest : BaseUnitTest() {
+class NetworkServiceImplTest : BaseUnitTest() {
     private val unconfinedDispatcher = UnconfinedTestDispatcher()
 
     @MockK
@@ -25,11 +25,11 @@ class RemoteRepositoryImplTest : BaseUnitTest() {
     @MockK
     private lateinit var serviceApi: ServiceApi
 
-    private lateinit var remoteDataRepository: RemoteRepository
+    private lateinit var remoteDataRepository: NetworkService
 
     @BeforeTest
     fun before() {
-        remoteDataRepository = RemoteRepositoryImpl(serviceApi, networkHandler, unconfinedDispatcher)
+        remoteDataRepository = NetworkServiceImpl(serviceApi, networkHandler, unconfinedDispatcher)
     }
 
     @Test

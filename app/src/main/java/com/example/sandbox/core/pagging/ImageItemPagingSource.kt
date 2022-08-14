@@ -1,8 +1,10 @@
 package com.example.sandbox.core.pagging
 
+import com.example.sandbox.core.data.ImageItem
 import com.example.sandbox.core.exception.SandboxException
-import com.example.sandbox.core.repository.data.ImageItem
 import com.example.sandbox.core.repository.local.LocalRepository
+import com.example.sandbox.core.repository.local.entity.ItemEntity
+import com.example.sandbox.core.repository.local.entity.toImageItem
 import com.example.sandbox.core.utils.Either
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -17,7 +19,7 @@ class ImageItemPagingSource(private val localRepository: LocalRepository) : Defa
                     continuation.resume(result as Either.Failure)
                 },
                 { data ->
-                    continuation.resume(Either.Success(data.map { it.toImageItem() }))
+                    continuation.resume(Either.Success(data))
                 }
             )
         }

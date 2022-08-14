@@ -4,13 +4,12 @@ import com.example.sandbox.BaseUnitTest
 import com.example.sandbox.core.repository.local.LocalRepository
 import com.example.sandbox.core.repository.preference.PreferenceRepository
 import com.example.sandbox.core.repository.preference.key.PreferenceKey
-import com.example.sandbox.core.repository.remote.RemoteRepository
+import com.example.sandbox.core.repository.remote.NetworkService
 import com.example.sandbox.core.utils.Either
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import io.realm.kotlin.internal.platform.freeze
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,7 +27,7 @@ class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
     private lateinit var clock: Clock.System
 
     @MockK
-    private lateinit var remoteRepository: RemoteRepository
+    private lateinit var networkService: NetworkService
 
     @MockK
     private lateinit var localRepository: LocalRepository
@@ -38,7 +37,7 @@ class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
 
     @BeforeTest
     fun setUp() {
-        fetchAndStoreItemsUseCase = FetchAndStoreItemsUseCase(remoteRepository, localRepository, preferenceRepository)
+        fetchAndStoreItemsUseCase = FetchAndStoreItemsUseCase(networkService, localRepository, preferenceRepository)
     }
 
     @Test
@@ -66,14 +65,14 @@ class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
             preferenceRepository.get(PreferenceKey.LastFetch, any())
         } returns lastTime
         coEvery {
-            remoteRepository.retrieveItems(any())
+            networkService.retrieveItems(any())
         } returns Either.Success(emptyList())
         coEvery {
             localRepository.insertItems(any())
         } returns Either.Success(true)
 
         val result = fetchAndStoreItemsUseCase.run("")
-        coVerify {
+        coVerify(exactly = 1) {
             preferenceRepository.save(PreferenceKey.LastFetch, currentTime)
         }
     }

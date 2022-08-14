@@ -11,7 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import com.example.sandbox.core.repository.data.ImageItem
+import com.example.sandbox.core.data.ImageItem
 import com.example.sandbox.databinding.FragmentAlbumBinding
 import com.example.sandbox.main.album.adapter.AlbumAdapter
 import com.example.sandbox.main.album.binding.initAlbumAdapter

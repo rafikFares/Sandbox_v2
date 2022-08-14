@@ -1,15 +1,18 @@
 package com.example.sandbox.core.repository.local
 
 import com.example.sandbox.BaseUnitTest
+import com.example.sandbox.core.data.AlbumItem
 import com.example.sandbox.core.repository.local.dao.ItemDao
 import com.example.sandbox.core.repository.local.entity.ItemEntity
 import com.example.sandbox.core.utils.Either
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.shouldBe
@@ -43,13 +46,15 @@ class LocalRepositoryImplTest : BaseUnitTest() {
     @Test
     fun retrieveItemsCallIntRange() = runTest {
         val range = IntRange(0, 10)
+        val items = listOf(ItemEntity())
         coEvery {
             itemDao.retrieveAllItemsInRange(range)
-        } returns emptyList()
-        localRepository.retrieveItems(range.first, range.last)
-        coVerify {
-            localRepository.retrieveItems(range)
-        }
+        } returns items
+
+        val tmp = localRepository.retrieveItems(range.first, range.last)
+
+        tmp shouldBeInstanceOf Either.Success::class
+        (tmp as Either.Success).value.first().id shouldBeEqualTo items.first().id
     }
 
     @Test
@@ -59,7 +64,8 @@ class LocalRepositoryImplTest : BaseUnitTest() {
             itemDao.retrieveAllItemsInRange(range)
         } returns emptyList()
         val result = localRepository.retrieveItems(range)
-        coVerify {
+
+        coVerify(exactly = 1) {
             itemDao.retrieveAllItemsInRange(range)
         }
         result shouldBeInstanceOf Either.Success::class
@@ -73,7 +79,8 @@ class LocalRepositoryImplTest : BaseUnitTest() {
             itemDao.retrieveAllItemsOfAlbum(albumId)
         } returns emptyList()
         val result = localRepository.retrieveItemsOfAlbum(albumId)
-        coVerify {
+
+        coVerify(exactly = 1) {
             itemDao.retrieveAllItemsOfAlbum(albumId)
         }
         result shouldBeInstanceOf Either.Success::class
@@ -108,7 +115,12 @@ class LocalRepositoryImplTest : BaseUnitTest() {
                 id = 41
             }
         )
-        val resultMap = mapOf(66 to 1, 44 to 2, 88 to 2, 10 to 1)
+        val resultMap = listOf(
+            AlbumItem(albumId = 66, imagesCount = 1),
+            AlbumItem(albumId = 44, imagesCount = 2),
+            AlbumItem(albumId = 88, imagesCount = 2),
+            AlbumItem(albumId = 10, imagesCount = 1)
+        )
         coEvery { itemDao.retrieveAllItems() } returns listOfItemEntities
 
         val result = localRepository.retrieveAlbums()

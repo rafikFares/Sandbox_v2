@@ -2,7 +2,6 @@ package com.example.sandbox.main.home
 
 import android.animation.ValueAnimator
 import android.os.Bundle
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -11,13 +10,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.sandbox.R
 import com.example.sandbox.databinding.ActivityHomeBinding
-import com.example.sandbox.main.alert.DefaultAlert
 import com.example.sandbox.main.extension.showAsInformationSnackBar
 import com.example.sandbox.main.platform.BaseAppcompatActivity
 import com.example.sandbox.main.platform.EventObserver
 import com.example.uibox.tools.StringSource
 import com.example.uibox.view.InformationAlertView
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,7 +38,7 @@ class HomeActivity : BaseAppcompatActivity() {
     }
 
     private fun initActions() {
-        homeViewModel.failure.observe(this, EventObserver{
+        homeViewModel.failure.observe(this, EventObserver {
             manageError(it)
         })
 
@@ -52,8 +49,8 @@ class HomeActivity : BaseAppcompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.uiState.collect{
-                    when(it) {
+                homeViewModel.uiState.collect {
+                    when (it) {
                         HomeViewModel.UiState.AlreadyUpToDate -> {
                             binding.refreshButton.repeatCount = 1
                             showInformationNotification(
