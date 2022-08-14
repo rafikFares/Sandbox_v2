@@ -26,7 +26,7 @@ class LoginPasswordView @JvmOverloads constructor(
     val passwordText: String
         get() = "${binding.passwordField.text}"
 
-    fun showErrorState(hint: StringSource) {
-        binding.passwordContainer.error = hint.toString(context)
+    fun showErrorState(error: StringSource) {
+        binding.passwordContainer.error = error.toString(context)
     }
 }
