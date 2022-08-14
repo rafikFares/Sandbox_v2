@@ -15,7 +15,7 @@ private const val SEARCH_PARAMS = "technical-test.json"
 
 @KoinViewModel(binds = [HomeViewModel::class])
 class HomeViewModel(
-    private val fetchAndStoreItemsUseCase: FetchAndStoreItemsUseCase,
+    private val fetchAndStoreItemsUseCase: FetchAndStoreItemsUseCase
 ) : BaseViewModel() {
 
     sealed interface UiState : BaseUiState {
@@ -60,7 +60,7 @@ class HomeViewModel(
         }
     }
 
-    fun refreshClick() {
+    fun onRefreshClick() {
         loadData(SEARCH_PARAMS) // default with "technical-test.json" as params
     }
 

@@ -1,31 +1,31 @@
-package com.example.sandbox.core.usecase
+package com.example.sandbox.main.home
 
-import com.example.sandbox.BaseUnitTest
+import app.cash.turbine.test
+import com.example.sandbox.BaseAndroidTest
+import com.example.sandbox.MainDispatcherRule
 import com.example.sandbox.core.repository.local.LocalRepository
 import com.example.sandbox.core.repository.preference.PreferenceRepository
 import com.example.sandbox.core.repository.preference.key.PreferenceKey
 import com.example.sandbox.core.repository.remote.NetworkService
+import com.example.sandbox.core.usecase.FetchAndStoreItemsUseCase
 import com.example.sandbox.core.utils.Either
 import com.example.sandbox.core.utils.currentTime
 import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import kotlinx.datetime.Clock
-import org.amshove.kluent.shouldBe
-import org.amshove.kluent.shouldBeInstanceOf
-
+import org.amshove.kluent.shouldBeEqualTo
+import org.junit.Rule
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
-    private lateinit var fetchAndStoreItemsUseCase: FetchAndStoreItemsUseCase
+class HomeViewModelTest : BaseAndroidTest() {
 
-    @MockK
-    private lateinit var clock: Clock.System
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
+
+    private lateinit var fetchAndStoreItemsUseCase: FetchAndStoreItemsUseCase
 
     @MockK
     private lateinit var networkService: NetworkService
@@ -42,28 +42,25 @@ class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
     }
 
     @Test
-    fun noNeedToUpdateCache() = runTest {
+    fun onRefreshLoadDataAlreadyUpToDate() = runTest {
         coEvery {
             preferenceRepository.get(PreferenceKey.LastFetch, any())
         } returns currentTime
 
-        val result = fetchAndStoreItemsUseCase.run("")
-        result shouldBeInstanceOf Either.Success::class.java
-        (result as Either.Success).value shouldBe false
+        val homeViewModel = HomeViewModel(fetchAndStoreItemsUseCase)
+
+        homeViewModel.uiState.test {
+            homeViewModel.onRefreshClick()
+            awaitItem() shouldBeEqualTo HomeViewModel.UiState.Loading
+            awaitItem() shouldBeEqualTo HomeViewModel.UiState.AlreadyUpToDate
+        }
     }
 
     @Test
-    fun fetchUpdateCache() = runTest {
-        val currentTimeTest = currentTime // real time
-        every {
-            clock.now().epochSeconds
-        } returns currentTimeTest
-
-        val lastTime = currentTimeTest - 60 * 61 // 1 hour and 1 minute
-
+    fun onRefreshLoadDataUpdated() = runTest {
         coEvery {
             preferenceRepository.get(PreferenceKey.LastFetch, any())
-        } returns lastTime
+        } returns currentTime - 60 * 120 // - 2 hours
         coEvery {
             networkService.retrieveItems(any())
         } returns Either.Success(emptyList())
@@ -71,9 +68,12 @@ class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
             localRepository.insertItems(any())
         } returns Either.Success(true)
 
-        val result = fetchAndStoreItemsUseCase.run("")
-        coVerify(exactly = 1) {
-            preferenceRepository.save(PreferenceKey.LastFetch, currentTimeTest)
+        val homeViewModel = HomeViewModel(fetchAndStoreItemsUseCase)
+
+        homeViewModel.uiState.test {
+            homeViewModel.onRefreshClick()
+            awaitItem() shouldBeEqualTo HomeViewModel.UiState.Loading
+            awaitItem() shouldBeEqualTo HomeViewModel.UiState.Updated
         }
     }
 }

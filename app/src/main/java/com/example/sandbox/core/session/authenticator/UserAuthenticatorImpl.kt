@@ -3,7 +3,6 @@ package com.example.sandbox.core.session.authenticator
 import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.repository.preference.PreferenceRepository
 import com.example.sandbox.core.repository.preference.key.PreferenceKey
-import com.example.sandbox.core.session.authenticator.UserAuthenticator
 import com.example.sandbox.core.utils.Either
 import org.koin.core.annotation.Single
 

@@ -10,7 +10,7 @@ import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.Rule
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -22,7 +22,7 @@ class StartViewModelTest : BaseAndroidTest() {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun userIsConnectedUpdateUiState() = runTest(UnconfinedTestDispatcher()) {
+    fun userIsConnectedUpdateUiState() = runTest {
         coEvery {
             userSession.isUserLoggedIn()
         } returns true
@@ -30,14 +30,14 @@ class StartViewModelTest : BaseAndroidTest() {
         val startViewModel = StartViewModel(userSession)
 
         startViewModel.uiState.test {
-            assertEquals(StartViewModel.UiState.Init, awaitItem())
-            assertEquals(StartViewModel.UiState.Connected, awaitItem())
+            awaitItem() shouldBeEqualTo StartViewModel.UiState.Init
+            awaitItem() shouldBeEqualTo StartViewModel.UiState.Connected
             cancel()
         }
     }
 
     @Test
-    fun userIsNotConnectedUpdateUiState() = runTest(UnconfinedTestDispatcher()) {
+    fun userIsNotConnectedUpdateUiState() = runTest {
         coEvery {
             userSession.isUserLoggedIn()
         } returns false
@@ -45,8 +45,8 @@ class StartViewModelTest : BaseAndroidTest() {
         val startViewModel = StartViewModel(userSession)
 
         startViewModel.uiState.test {
-            assertEquals(StartViewModel.UiState.Init, awaitItem())
-            assertEquals(StartViewModel.UiState.NotConnected, awaitItem())
+            awaitItem() shouldBeEqualTo StartViewModel.UiState.Init
+            awaitItem() shouldBeEqualTo StartViewModel.UiState.NotConnected
             cancel()
         }
     }

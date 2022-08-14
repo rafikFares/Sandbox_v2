@@ -53,7 +53,7 @@
             android:clickable="true"
             android:elevation="8dp"
             android:focusable="true"
-            android:onClick="@{() -> viewmodel.refreshClick()}"
+            android:onClick="@{() -> viewmodel.onRefreshClick()}"
             android:padding="@dimen/spacing_xs"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
