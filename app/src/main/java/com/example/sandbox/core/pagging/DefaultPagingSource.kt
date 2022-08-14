@@ -53,7 +53,7 @@ abstract class DefaultPagingSource<T : Any> : PagingSource<Int, T>() {
     /**
      * Makes sure the paging key is never less than [STARTING_KEY]
      */
-    protected fun ensureValidKey(key: Int) = max(STARTING_KEY, key)
+    private fun ensureValidKey(key: Int) = max(STARTING_KEY, key)
 
     companion object {
         private const val STARTING_KEY = 0
