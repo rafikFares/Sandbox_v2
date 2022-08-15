@@ -41,6 +41,8 @@ class DataBindingIdlingResource<F : Fragment> : IdlingResource {
         scenario = fragmentScenario
     }
 
+    var scenarioFragment: F? = null
+
     override fun isIdleNow(): Boolean {
         val idle = !getBindings().any { it.hasPendingBindings() }
         @Suppress("LiftReturnOrAssignment")
@@ -54,6 +56,7 @@ class DataBindingIdlingResource<F : Fragment> : IdlingResource {
             wasNotIdle = true
             // check next frame
             scenario.onFragment { fragment ->
+                scenarioFragment = fragment
                 fragment.view?.postDelayed({
                     if (fragment.view != null) {
                         isIdleNow
@@ -75,7 +78,7 @@ class DataBindingIdlingResource<F : Fragment> : IdlingResource {
         lateinit var bindings: List<ViewDataBinding>
         scenario.onFragment { fragment ->
             bindings = fragment.requireView().flattenHierarchy().mapNotNull { view ->
-                DataBindingUtil.getBinding<ViewDataBinding>(view)
+                DataBindingUtil.getBinding(view)
             }
         }
         return bindings

@@ -3,6 +3,7 @@ package com.example.sandbox
 import android.content.Context
 import android.util.Log
 import androidx.annotation.StyleRes
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.test.espresso.Espresso
@@ -18,19 +19,19 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 abstract class BaseAndroidUiFragmentTest<F : Fragment> {
+    private val idlingResource = DataBindingIdlingResource<F>()
 
     @get:Rule
-    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule<F>()
+    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(idlingResource)
 
     abstract val fragmentScenario: FragmentScenario<F>?
-
 
     @Before
     fun init() {
         checkNotNull(fragmentScenario) {
             Log.e("BaseAndroidUiFragmentTest", "Need to override fragmentScenario")
         }
-        dataBindingIdlingResourceRule.monitorFragment(fragmentScenario!!)
+        idlingResource.monitorFragment(fragmentScenario!!)
         Espresso.onIdle()
     }
 
@@ -42,4 +43,7 @@ abstract class BaseAndroidUiFragmentTest<F : Fragment> {
 
     protected val matchers: BaseMatchers = BaseMatchers()
     protected val events: BaseEvents = BaseEvents()
+    protected fun getFragment(): F? {
+        return idlingResource.scenarioFragment
+    }
 }

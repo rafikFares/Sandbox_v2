@@ -14,7 +14,7 @@ import org.junit.Rule
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-abstract class BaseAndroidUiTest<T : Activity>(activity: KClass<T>) {
+abstract class BaseAndroidUiActivityTest<T : Activity>(activity: KClass<T>) {
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(activity.java)
 
