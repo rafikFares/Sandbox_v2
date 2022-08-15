@@ -7,5 +7,6 @@
     <string name="login_error_message">Try \'admin\' \'admin\'</string>
     <string name="already_up_to_data">Already up to date</string>
     <string name="updated">Update success</string>
+    <string name="settings_fail_message">Text not valid (need to end up with .json)</string>
 
 </resources>

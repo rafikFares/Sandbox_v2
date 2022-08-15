@@ -34,3 +34,16 @@ fun View.clickWithDebounce(debounceTime: Long = 600L, action: () -> Unit) {
         }
     })
 }
+
+fun View.animateClickWithDebounce(scaleType: ScaleType = ScaleType.Small, debounceTime: Long = 600L, endTask: () -> Unit) {
+    this.setOnClickListener(object : View.OnClickListener {
+        private var lastClickTime: Long = 0
+
+        override fun onClick(v: View) {
+            if (SystemClock.elapsedRealtime() - lastClickTime < debounceTime) return
+            else v.animateClick (scaleType = scaleType, endTask = endTask)
+
+            lastClickTime = SystemClock.elapsedRealtime()
+        }
+    })
+}

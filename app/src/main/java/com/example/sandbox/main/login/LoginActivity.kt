@@ -9,9 +9,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.sandbox.R
 import com.example.sandbox.databinding.ActivityLoginBinding
+import com.example.sandbox.main.alert.custom.SettingsAlertPopUp
 import com.example.sandbox.main.home.HomeActivity
-import com.example.sandbox.main.start.StartViewModel
 import com.example.uibox.tools.StringSource
+import com.example.uibox.tools.animateClickWithDebounce
 import com.example.uibox.tools.clickWithDebounce
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,6 +36,11 @@ class LoginActivity : AppCompatActivity() {
                 val userName = loginPasswordView.userNameText
                 val password = loginPasswordView.passwordText
                 loginViewModel.login(userName, password)
+            }
+            settings.animateClickWithDebounce {
+                lifecycleScope.launch {
+                    val result = SettingsAlertPopUp.create(supportFragmentManager)
+                }
             }
         }
 

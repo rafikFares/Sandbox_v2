@@ -39,6 +39,9 @@ class HomeViewModelTest : BaseAndroidTest() {
     @BeforeTest
     fun setUp() {
         fetchAndStoreItemsUseCase = FetchAndStoreItemsUseCase(networkService, localRepository, preferenceRepository)
+        coEvery {
+            preferenceRepository.get(PreferenceKey.ApiFileName, any())
+        } returns "file.json"
     }
 
     @Test
@@ -47,7 +50,7 @@ class HomeViewModelTest : BaseAndroidTest() {
             preferenceRepository.get(PreferenceKey.LastFetch, any())
         } returns currentTime
 
-        val homeViewModel = HomeViewModel(fetchAndStoreItemsUseCase)
+        val homeViewModel = HomeViewModel(preferenceRepository, fetchAndStoreItemsUseCase)
 
         homeViewModel.uiState.test {
             homeViewModel.onRefreshClick()
@@ -68,7 +71,7 @@ class HomeViewModelTest : BaseAndroidTest() {
             localRepository.insertItems(any())
         } returns Either.Success(true)
 
-        val homeViewModel = HomeViewModel(fetchAndStoreItemsUseCase)
+        val homeViewModel = HomeViewModel(preferenceRepository, fetchAndStoreItemsUseCase)
 
         homeViewModel.uiState.test {
             homeViewModel.onRefreshClick()

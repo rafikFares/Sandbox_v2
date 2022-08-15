@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources tools:ignore="MissingTranslation" xmlns:tools="http://schemas.android.com/tools">
-    <string name="search_box_hint">Search Here</string>
     <string name="username">Username \'admin\'</string>
     <string name="password">Password \'admin\'</string>
+    <string name="confirm">Confirm</string>
+    <string name="settings_hint">technical-test.json</string>
+    <string name="api_file_to_fetch">Api file to fetch from</string>
 
 </resources>

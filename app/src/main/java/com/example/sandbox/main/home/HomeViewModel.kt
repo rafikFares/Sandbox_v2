@@ -4,17 +4,22 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.sandbox.BuildConfig
 import com.example.sandbox.core.exception.SandboxException
+import com.example.sandbox.core.repository.preference.PreferenceRepository
+import com.example.sandbox.core.repository.preference.key.PreferenceKey
 import com.example.sandbox.core.usecase.FetchAndStoreItemsUseCase
 import com.example.sandbox.main.platform.BaseViewModel
+import kotlin.coroutines.resume
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import org.koin.android.annotation.KoinViewModel
 
 private const val SEARCH_PARAMS = "technical-test.json"
 
 @KoinViewModel(binds = [HomeViewModel::class])
 class HomeViewModel(
+    private val preferenceRepository: PreferenceRepository,
     private val fetchAndStoreItemsUseCase: FetchAndStoreItemsUseCase
 ) : BaseViewModel() {
 
@@ -29,14 +34,17 @@ class HomeViewModel(
     override val uiState: SharedFlow<UiState> = _uiState
 
     init {
-        loadData(SEARCH_PARAMS) // default with "technical-test.json" as params
+        loadData()
     }
 
     @Suppress("SameParameterValue")
-    private fun loadData(params: String) {
+    private fun loadData() {
         updateUiState(UiState.Loading)
-        fetchAndStoreItemsUseCase(params, viewModelScope) {
-            it.fold(::handleFailure, ::handleSuccess)
+        viewModelScope.launch {
+            val params = getSearchParams()
+            fetchAndStoreItemsUseCase(params, viewModelScope) {
+                it.fold(::handleFailure, ::handleSuccess)
+            }
         }
     }
 
@@ -60,8 +68,18 @@ class HomeViewModel(
         }
     }
 
+    private suspend fun getSearchParams(): String {
+        val searchParams = preferenceRepository.get(
+            PreferenceKey.ApiFileName,
+            SEARCH_PARAMS
+        ) as String // default with "technical-test.json" as params
+        return suspendCancellableCoroutine {
+            it.resume(searchParams)
+        }
+    }
+
     fun onRefreshClick() {
-        loadData(SEARCH_PARAMS) // default with "technical-test.json" as params
+        loadData()
     }
 
     override fun log(message: String, exception: Exception?) {
