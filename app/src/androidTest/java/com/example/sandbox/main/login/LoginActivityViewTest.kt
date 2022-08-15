@@ -12,7 +12,7 @@ import org.junit.Test
 class LoginActivityViewTest : BaseAndroidUiTest<LoginActivity>(LoginActivity::class) {
 
     @Test
-    fun top() {
+    fun defaultViewInteraction() {
         onView(
             withId(com.example.uibox.R.id.userNameContainer)
         ).check(
@@ -32,6 +32,20 @@ class LoginActivityViewTest : BaseAndroidUiTest<LoginActivity>(LoginActivity::cl
             withId(com.example.uibox.R.id.passwordContainer)
         ).check(
             matches(matchers.hasTextInputLayoutErrorText(StringSource.Res(com.example.sandbox.R.string.login_error_message)))
+        )
+    }
+
+    @Test
+    fun viewSettingsInteraction() {
+        events.clickOnView(com.example.sandbox.R.id.settings)
+
+        events.setText(com.example.uibox.R.id.alertTextField, StringSource.String("false_regex"))
+        events.clickOnView(com.example.uibox.R.id.alertConfirmButton)
+
+        onView(
+            withId(com.example.uibox.R.id.alertTextFieldContainer)
+        ).check(
+            matches(matchers.hasTextInputLayoutErrorText(StringSource.Res(com.example.sandbox.R.string.settings_fail_message)))
         )
     }
 }
