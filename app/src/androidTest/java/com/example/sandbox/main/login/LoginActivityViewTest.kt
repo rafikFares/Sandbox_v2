@@ -14,6 +14,11 @@ class LoginActivityViewTest : BaseAndroidUiTest<LoginActivity>(LoginActivity::cl
     @Test
     fun defaultViewInteraction() {
         onView(
+            withId(com.example.sandbox.R.id.animation_view)
+        ).check(
+            matches(matchers.isLottieAnimationAnimating())
+        )
+        onView(
             withId(com.example.uibox.R.id.userNameContainer)
         ).check(
             matches(matchers.hasTextInputLayoutHintText(StringSource.Res(com.example.uibox.R.string.username)))

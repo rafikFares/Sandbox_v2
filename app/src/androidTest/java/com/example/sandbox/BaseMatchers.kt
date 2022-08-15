@@ -1,6 +1,7 @@
 package com.example.sandbox
 
 import android.view.View
+import com.airbnb.lottie.LottieAnimationView
 import com.example.uibox.tools.StringSource
 import com.example.uibox.tools.StringSourceData
 import com.example.uibox.tools.toString
@@ -35,6 +36,20 @@ class BaseMatchers : Matchers() {
                 if (item !is TextInputLayout) return false
                 val hint = item.hint ?: return false
                 return expectedHintStringSource.toString(item.context) == "$hint"
+            }
+
+            override fun describeTo(description: Description?) {
+            }
+        }
+
+    /**
+     * assert TextInputLayout hint text
+     */
+    fun isLottieAnimationAnimating(): Matcher<View> =
+        object : TypeSafeMatcher<View>() {
+            override fun matchesSafely(item: View?): Boolean {
+                if (item !is LottieAnimationView) return false
+                return item.isAnimating
             }
 
             override fun describeTo(description: Description?) {
