@@ -50,7 +50,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:gravity="center"
-        android:textColor="@color/color_text_tertiary"
+        android:textColor="@color/color_text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

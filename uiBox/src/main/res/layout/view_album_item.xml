@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/albumId"
-        style="@style/Body.Bold"
+        style="@style/BigText.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_s"
@@ -39,13 +39,13 @@
 
     <TextView
         android:id="@+id/albumItemsCount"
-        style="@style/SmallText"
+        style="@style/Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_s"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/color_text_tertiary"
+        android:textColor="@color/color_text_secondary"
         app:layout_constraintBottom_toBottomOf="@id/albumIcon"
         app:layout_constraintEnd_toEndOf="@id/albumIcon"
         app:layout_constraintStart_toStartOf="@id/albumIcon"

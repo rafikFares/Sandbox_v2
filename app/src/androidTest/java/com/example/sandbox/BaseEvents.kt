@@ -9,6 +9,7 @@ import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.uibox.tools.StringSource
 import com.example.uibox.tools.StringSourceData
 import com.example.uibox.tools.applyStringSource
@@ -18,6 +19,10 @@ import org.hamcrest.Matcher
 class BaseEvents {
     fun clickOnView(@IdRes viewId: Int) {
         onView(withId(viewId)).perform(click())
+    }
+
+    fun clickOnView(text: String) {
+        onView(withText(text)).perform(click())
     }
 
     /**

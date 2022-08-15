@@ -6,6 +6,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
 import com.example.sandbox.BaseAndroidUiActivityTest
 import com.example.uibox.tools.StringSource
+import com.example.uibox.tools.toString
 import org.junit.Test
 
 @LargeTest
@@ -45,7 +46,7 @@ class LoginActivityViewTest : BaseAndroidUiActivityTest<LoginActivity>(LoginActi
         events.clickOnView(com.example.sandbox.R.id.settings)
 
         events.setText(com.example.uibox.R.id.alertTextField, StringSource.String("false_regex"))
-        events.clickOnView(com.example.uibox.R.id.alertConfirmButton)
+        events.clickOnView(StringSource.Res(com.example.uibox.R.string.confirm).toString(appContext))
 
         onView(
             withId(com.example.uibox.R.id.alertTextFieldContainer)

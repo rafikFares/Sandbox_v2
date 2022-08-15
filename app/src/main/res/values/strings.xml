@@ -8,5 +8,8 @@
     <string name="already_up_to_data">Already up to date</string>
     <string name="updated">Update success</string>
     <string name="settings_fail_message">Text not valid (need to end up with .json)</string>
+    <string name="id">Id: %d</string>
+    <string name="items">%s Items</string>
+
 
 </resources>

@@ -25,7 +25,7 @@ class ItemAlbumView @JvmOverloads constructor(
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
     data class AlbumData(
-        val albumId: Int,
+        @StringSourceData val albumId: StringSource,
         @StringSourceData val albumImagesCount: StringSource
     )
 
@@ -44,7 +44,7 @@ class ItemAlbumView @JvmOverloads constructor(
 
     fun configure(albumData: AlbumData, clickAction: (AlbumData) -> Unit) {
         with(binding) {
-            albumId.text = "${albumData.albumId}"
+            albumId.applyStringSource(albumData.albumId)
             albumItemsCount.applyStringSource(albumData.albumImagesCount)
         }
         clickWithDebounce {

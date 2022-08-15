@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sandbox.R
 import com.example.sandbox.core.data.AlbumItem
 import com.example.sandbox.main.album.AlbumViewModel
 import com.example.uibox.tools.StringSource
@@ -46,13 +47,13 @@ class AlbumAdapter(private val albumViewModel: AlbumViewModel) :
 
         fun bind(item: AlbumItem) {
             view.configure(item.toAlbumData()) {
-                albumViewModel.onAlbumClick(it.albumId)
+                albumViewModel.onAlbumClick(item.albumId)
             }
         }
 
         private fun AlbumItem.toAlbumData(): ItemAlbumView.AlbumData = ItemAlbumView.AlbumData(
-            albumId = albumId,
-            albumImagesCount = StringSource.String("$imagesCount")
+            albumId = StringSource.Res(R.string.id, listOf(albumId)),
+            albumImagesCount = StringSource.Res(R.string.items, listOf(imagesCount))
         )
     }
 }

@@ -6,5 +6,6 @@
     <string name="already_up_to_data">Déjà à jour</string>
     <string name="updated">Mise à jour réussie</string>
     <string name="settings_fail_message">Texte non valide (doit se finir avec .json)</string>
-
+    <string name="id">Id: %d</string>
+    <string name="items">%s Objets</string>
 </resources>

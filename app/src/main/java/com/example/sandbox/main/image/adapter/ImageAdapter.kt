@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sandbox.R
 import com.example.sandbox.core.data.ImageItem
 import com.example.sandbox.main.image.ImageViewModel
 import com.example.uibox.tools.StringSource
@@ -55,13 +56,13 @@ class ImageAdapter(private val imageViewModel: ImageViewModel) :
 
         fun bind(item: ImageItem) {
             view.configure(item.toImageData()) {
-                imageViewModel.onImageItemClick(it.imageUrl)
+                imageViewModel.onImageItemClick(item.url)
             }
         }
 
         private fun ImageItem.toImageData(): ItemImageView.ImageData = ItemImageView.ImageData(
             imageAlbumId = StringSource.String("$albumId"),
-            imageId = StringSource.String("$id"),
+            imageId = StringSource.Res(R.string.id, listOf(id)),
             imageTitle = StringSource.String(title),
             imageThumbnailUrl = thumbnailUrl,
             imageUrl = url

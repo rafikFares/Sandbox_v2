@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:minWidth="300dp"
     android:layout_gravity="center"
-    android:background="@color/color_white"
+    android:background="@drawable/alert_settings_bg"
     android:layout_marginHorizontal="@dimen/spacing_xxl">
 
     <TextView
@@ -52,11 +52,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_xxl_2"
         android:layout_marginTop="@dimen/spacing_xxl"
+        android:layout_marginBottom="@dimen/spacing_m"
         android:text="@string/confirm"
         app:backgroundTint="@color/color_blue"
         app:elevation="@dimen/elevation_6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/alertTextFieldContainer"
         app:shapeAppearance="@style/ButtonStyle" />
 
