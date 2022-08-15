@@ -30,12 +30,12 @@ abstract class BaseAndroidUiTest<T : Activity>(activity: KClass<T>) {
         Intents.release()
     }
 
-    val appContext: Context
+    protected val appContext: Context
         get() = InstrumentationRegistry.getInstrumentation().targetContext
 
-    val scenario: ActivityScenario<T>
+    protected val scenario: ActivityScenario<T>
         get() = activityScenarioRule.scenario
 
-    val matchers: BaseMatchers = BaseMatchers()
-    val events: BaseEvents = BaseEvents()
+    protected val matchers: BaseMatchers = BaseMatchers()
+    protected val events: BaseEvents = BaseEvents()
 }
