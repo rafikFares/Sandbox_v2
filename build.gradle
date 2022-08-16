@@ -29,6 +29,21 @@ buildscript {
         paging_version = '3.1.1'
         nav_version = '2.5.1'
         rightBottomSheet_version = '1.0'
+        junit_version = '4.13.2'
+        mockk_version = '1.12.1'
+        robolectric_version = '4.8.1'
+        testCore_version = '1.4.0'
+        koinTest_version = '3.2.0'
+        kluent_version = '1.68'
+        kotlinTest_version = '1.7.10'
+        coroutinesTest_version = '1.6.4'
+        turbine_version = '0.9.0'
+        fragmentTesting_version = '1.6.0-alpha01'
+        espresso_version = '3.5.0-alpha07'
+        runner_version = '1.5.0-alpha04'
+        rules_version = '1.4.1-alpha07'
+        extJunit_version = '1.1.4-alpha07'
+        extTruth_version = '1.5.0-alpha07'
     }
 }
 plugins {
