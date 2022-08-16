@@ -10,6 +10,8 @@ import androidx.core.text.color
 
 annotation class StringSourceData
 
+val Empty: StringSource = StringSource.String("")
+
 sealed interface StringSource {
     data class String(val value: kotlin.String) : StringSource
 
