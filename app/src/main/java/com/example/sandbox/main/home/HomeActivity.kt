@@ -13,6 +13,7 @@ import com.example.sandbox.databinding.ActivityHomeBinding
 import com.example.sandbox.main.extension.showAsInformationSnackBar
 import com.example.sandbox.main.platform.BaseAppcompatActivity
 import com.example.sandbox.main.platform.EventObserver
+import com.example.uibox.tools.ColorSource
 import com.example.uibox.tools.StringSource
 import com.example.uibox.view.InformationAlertView
 import kotlinx.coroutines.launch
@@ -56,7 +57,7 @@ class HomeActivity : BaseAppcompatActivity() {
                             showInformationNotification(
                                 InformationAlertView.Information(
                                     text = StringSource.Res(R.string.already_up_to_data),
-                                    backgroundColor = com.example.uibox.R.color.color_orange
+                                    backgroundColor = ColorSource.Res(com.example.uibox.R.color.color_orange)
                                 )
                             )
                         }
@@ -69,7 +70,7 @@ class HomeActivity : BaseAppcompatActivity() {
                             showInformationNotification(
                                 InformationAlertView.Information(
                                     text = StringSource.Res(R.string.updated),
-                                    backgroundColor = com.example.uibox.R.color.color_green
+                                    backgroundColor = ColorSource.Res(com.example.uibox.R.color.color_green)
                                 )
                             )
                         }

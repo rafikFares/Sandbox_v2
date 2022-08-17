@@ -8,6 +8,15 @@ import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.core.text.color
 
+@MustBeDocumented
+@kotlin.annotation.Retention(AnnotationRetention.SOURCE)
+@Target(
+    AnnotationTarget.PROPERTY,
+    AnnotationTarget.VALUE_PARAMETER,
+    AnnotationTarget.LOCAL_VARIABLE,
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.FIELD
+)
 annotation class StringSourceData
 
 val Empty: StringSource = StringSource.String("")

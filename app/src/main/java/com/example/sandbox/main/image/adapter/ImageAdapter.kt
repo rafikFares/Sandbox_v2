@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sandbox.R
 import com.example.sandbox.core.data.ImageItem
 import com.example.sandbox.main.image.ImageViewModel
+import com.example.uibox.tools.ImageSource
 import com.example.uibox.tools.StringSource
 import com.example.uibox.view.ItemImageView
 
@@ -64,8 +65,8 @@ class ImageAdapter(private val imageViewModel: ImageViewModel) :
             imageAlbumId = StringSource.String("$albumId"),
             imageId = StringSource.Res(R.string.id, listOf(id)),
             imageTitle = StringSource.String(title),
-            imageThumbnailUrl = thumbnailUrl,
-            imageUrl = url
+            imageThumbnailUrl = ImageSource.Url(thumbnailUrl),
+            imageUrl = ImageSource.Url(url)
         )
     }
 }

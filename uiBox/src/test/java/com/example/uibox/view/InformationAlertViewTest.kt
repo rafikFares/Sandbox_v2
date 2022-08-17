@@ -2,6 +2,8 @@ package com.example.uibox.view
 
 import com.example.uibox.BaseViewTest
 import com.example.uibox.databinding.ViewAlertInformationBinding
+import com.example.uibox.tools.ColorSource
+import com.example.uibox.tools.DrawableSource
 import com.example.uibox.tools.StringSource
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -42,8 +44,8 @@ class InformationAlertViewTest : BaseViewTest<InformationAlertView, ViewAlertInf
         val valueColor = com.example.uibox.R.color.color_blue
         val informationDate = InformationAlertView.Information(
             text = valueStringSource,
-            icon = valueDrawable,
-            backgroundColor = valueColor
+            icon = DrawableSource.Res(valueDrawable),
+            backgroundColor = ColorSource.Res(valueColor)
         )
 
         informationAlertView.configure(informationDate)

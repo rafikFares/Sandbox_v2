@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.example.uibox.databinding.ViewLoginPasswordBinding
 import com.example.uibox.tools.StringSource
+import com.example.uibox.tools.StringSourceData
 import com.example.uibox.tools.toString
 
 class LoginPasswordView @JvmOverloads constructor(
@@ -26,7 +27,7 @@ class LoginPasswordView @JvmOverloads constructor(
     val passwordText: String
         get() = "${binding.passwordField.text}"
 
-    fun showErrorState(error: StringSource) {
+    fun showErrorState(@StringSourceData error: StringSource) {
         binding.passwordContainer.error = error.toString(context)
     }
 }

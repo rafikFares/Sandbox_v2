@@ -9,9 +9,11 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.example.uibox.R
 import com.example.uibox.databinding.ViewImageZoomBinding
+import com.example.uibox.tools.ImageSource
+import com.example.uibox.tools.ImageSourceData
 import com.example.uibox.tools.ScaleType
 import com.example.uibox.tools.animateClick
-import com.squareup.picasso.Picasso
+import com.example.uibox.tools.applyImageSource
 
 class ZoomImageView @JvmOverloads constructor(
     context: Context,
@@ -34,16 +36,14 @@ class ZoomImageView @JvmOverloads constructor(
         }
     }
 
-    var image: String = ""
-        set(value) {
-            field = value
-            Picasso.get().load(value).into(binding.alertImage)
-        }
+    fun setImage(@ImageSourceData imageSource: ImageSource) {
+        binding.alertImage.applyImageSource(imageSource)
+    }
 }
 
 @BindingAdapter("bind:initFullImage")
 fun ZoomImageView.initFullImage(url: String?) {
     url?.let {
-        image = it
+        setImage(ImageSource.Url(it))
     }
 }

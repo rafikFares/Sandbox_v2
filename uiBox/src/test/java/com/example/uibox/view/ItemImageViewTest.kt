@@ -3,6 +3,7 @@ package com.example.uibox.view
 import com.example.uibox.BaseViewTest
 import com.example.uibox.databinding.ViewImageItemBinding
 import com.example.uibox.tools.Empty
+import com.example.uibox.tools.ImageSource
 import com.example.uibox.tools.StringSource
 import com.squareup.picasso.Picasso
 import kotlin.test.BeforeTest
@@ -35,8 +36,8 @@ class ItemImageViewTest : BaseViewTest<ItemImageView, ViewImageItemBinding>(Item
             imageAlbumId = StringSource.String(imageAlbumId),
             imageId = StringSource.String(imageId),
             imageTitle = StringSource.String(imageTitle),
-            imageThumbnailUrl = "url",
-            imageUrl = "url"
+            imageThumbnailUrl = ImageSource.Url("url"),
+            imageUrl = ImageSource.Url("url")
         )
 
         itemImageView.configure(imageData, {})
@@ -54,8 +55,8 @@ class ItemImageViewTest : BaseViewTest<ItemImageView, ViewImageItemBinding>(Item
             imageAlbumId = Empty,
             imageId = Empty,
             imageTitle = Empty,
-            imageThumbnailUrl = "url",
-            imageUrl = "url"
+            imageThumbnailUrl = ImageSource.Url("url"),
+            imageUrl = ImageSource.Url("url")
         )
 
         itemImageView.init(imageData) {

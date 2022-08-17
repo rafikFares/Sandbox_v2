@@ -7,15 +7,17 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.example.uibox.R
 import com.example.uibox.databinding.ViewImageItemBinding
+import com.example.uibox.tools.ImageSource
+import com.example.uibox.tools.ImageSourceData
 import com.example.uibox.tools.StringSource
 import com.example.uibox.tools.StringSourceData
 import com.example.uibox.tools.animateClick
+import com.example.uibox.tools.applyImageSource
 import com.example.uibox.tools.applyStringSource
 import com.example.uibox.tools.clickWithDebounce
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
-import com.squareup.picasso.Picasso
 
 
 class ItemImageView @JvmOverloads constructor(
@@ -28,8 +30,8 @@ class ItemImageView @JvmOverloads constructor(
         @StringSourceData val imageAlbumId: StringSource,
         @StringSourceData val imageId: StringSource,
         @StringSourceData val imageTitle: StringSource,
-        val imageThumbnailUrl: String,
-        val imageUrl: String
+        @ImageSourceData val imageThumbnailUrl: ImageSource,
+        @ImageSourceData val imageUrl: ImageSource
     )
 
     private val binding = ViewImageItemBinding.inflate(LayoutInflater.from(context), this@ItemImageView, true)
@@ -49,7 +51,7 @@ class ItemImageView @JvmOverloads constructor(
         with(binding) {
             imageId.applyStringSource(imageData.imageId)
             imageTitle.applyStringSource(imageData.imageTitle)
-            Picasso.get().load(imageData.imageThumbnailUrl).into(imageIcon)
+            imageIcon.applyImageSource(imageData.imageThumbnailUrl)
         }
         clickWithDebounce {
             binding.imageIcon.animateClick {
