@@ -39,7 +39,7 @@ jobs:
       run: chmod +x gradlew
       
     - name: Build with Gradle
-      run: ./gradlew assembleRelease --stacktrace
+      run: ./gradlew clean assembleRelease --stacktrace
       
   upload:
     needs: [ build ]
@@ -50,4 +50,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: signed_app_bundle
-          path: app/build/outputs/bundle/release/app-release.aab
+          path: app/build/intermediates/apk/release/app-release.apk
