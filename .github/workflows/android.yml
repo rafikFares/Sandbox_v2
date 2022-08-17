@@ -59,7 +59,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: signed_app
-          path: app/build/intermediates/apk/release/app-release.apk
+          path: app/build/outputs/apk/release/app-release.apk
 
       - name: Upload build reports
         if: always()
