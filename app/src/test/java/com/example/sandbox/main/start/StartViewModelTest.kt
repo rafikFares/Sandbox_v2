@@ -8,7 +8,6 @@ import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.Rule

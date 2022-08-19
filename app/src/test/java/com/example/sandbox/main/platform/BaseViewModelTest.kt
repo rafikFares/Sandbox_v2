@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.StateFlow
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeInstanceOf
 
-
 class BaseViewModelTest : BaseAndroidTest() {
 
     private class TestViewModel : BaseViewModel() {
@@ -24,7 +23,6 @@ class BaseViewModelTest : BaseAndroidTest() {
             super.handleFailure(exception)
         }
     }
-
 
     @Test
     fun updateFailureLiveDataAfterHandlingFailure() {

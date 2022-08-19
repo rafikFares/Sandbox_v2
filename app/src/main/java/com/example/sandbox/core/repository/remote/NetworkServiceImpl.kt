@@ -21,7 +21,9 @@ class NetworkServiceImpl(
         withContext(ioDispatcher) {
             if (networkHandler.isNetworkAvailable()) {
                 try {
-                    if (params.isNullOrBlank()) return@withContext Either.Failure(SandboxException.EmptyParamsException)
+                    if (params.isNullOrBlank()) return@withContext Either.Failure(
+                        SandboxException.EmptyParamsException
+                    )
 
                     val response = serviceApi.fetchImages(params)
                     if (response.isSuccessful) {
@@ -31,7 +33,9 @@ class NetworkServiceImpl(
                     return@withContext Either.Failure(SandboxException.ServerErrorException())
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    return@withContext Either.Failure(SandboxException.ServerErrorException(e.message))
+                    return@withContext Either.Failure(
+                        SandboxException.ServerErrorException(e.message)
+                    )
                 }
             } else {
                 return@withContext Either.Failure(SandboxException.NetworkConnectionException)

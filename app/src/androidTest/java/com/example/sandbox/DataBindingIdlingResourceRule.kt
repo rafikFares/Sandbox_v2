@@ -5,11 +5,12 @@ import androidx.test.espresso.IdlingRegistry
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-
 /**
  * A JUnit rule that registers an idling resource for all fragment views that use data binding.
  */
-class DataBindingIdlingResourceRule<F : Fragment>(private val idlingResource: DataBindingIdlingResource<F>) : TestWatcher() {
+class DataBindingIdlingResourceRule<F : Fragment>(
+    private val idlingResource: DataBindingIdlingResource<F>
+) : TestWatcher() {
 
     override fun finished(description: Description) {
         IdlingRegistry.getInstance().unregister(idlingResource)
@@ -20,5 +21,4 @@ class DataBindingIdlingResourceRule<F : Fragment>(private val idlingResource: Da
         IdlingRegistry.getInstance().register(idlingResource)
         super.starting(description)
     }
-
 }

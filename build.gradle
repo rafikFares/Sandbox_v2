@@ -10,7 +10,7 @@ buildscript {
         kotlin_version = '1.7.10'
         core_version = '1.8.0'
         lifecycle_version = '2.5.1'
-        appcompat_version = '1.4.2'
+        appcompat_version = '1.5.0'
         constraintlayout_version = '2.1.4'
         material_version = '1.6.1'
         coroutines_version = '1.6.4'
@@ -54,6 +54,7 @@ plugins {
     id 'io.realm.kotlin' version '1.0.2' apply false
     id 'org.jetbrains.kotlin.kapt' version '1.7.10'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.6.21' apply false
+    id 'org.jlleitschuh.gradle.ktlint' version '10.3.0'
 }
 
 task clean(type: Delete) {

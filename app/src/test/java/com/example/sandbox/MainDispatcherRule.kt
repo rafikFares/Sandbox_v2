@@ -26,7 +26,7 @@ val standardRepo = Repository(StandardTestDispatcher())
 
 @ExperimentalCoroutinesApi
 class MainDispatcherRule(
-    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher(),
+    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
 ) : TestWatcher() {
 
     override fun starting(description: Description) {

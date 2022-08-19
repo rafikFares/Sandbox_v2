@@ -23,10 +23,12 @@ import org.junit.Rule
  *
  * @see BaseAndroidTest
  */
-abstract class BaseUnitTest: BaseTest {
+abstract class BaseUnitTest : BaseTest {
 
     @Suppress("LeakingThis")
-    @Rule @JvmField val injectMocks = create(this@BaseUnitTest)
+    @Rule
+    @JvmField
+    val injectMocks = create(this@BaseUnitTest)
 
     fun fail(message: String): Nothing = throw AssertionError(message)
 }

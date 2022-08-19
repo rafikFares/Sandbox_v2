@@ -31,7 +31,9 @@ class PreferenceRepositoryImpl(
                 }
             }
         } else {
-            throw SandboxException.PreferenceKeyException("Not correct type expected : ${preferenceKey.type} actual : ${value::class}")
+            throw SandboxException.PreferenceKeyException(
+                "Not correct type expected : ${preferenceKey.type} actual : ${value::class}"
+            )
         }
     }
 
@@ -43,7 +45,9 @@ class PreferenceRepositoryImpl(
                 }
             }
         } else {
-            throw SandboxException.PreferenceKeyException("Not correct type expected : ${preferenceKey.type} actual : ${value::class}")
+            throw SandboxException.PreferenceKeyException(
+                "Not correct type expected : ${preferenceKey.type} actual : ${value::class}"
+            )
         }
     }
 
@@ -55,7 +59,9 @@ class PreferenceRepositoryImpl(
                 }
             }
         } else {
-            throw SandboxException.PreferenceKeyException("Not correct type expected : ${preferenceKey.type} actual : ${value::class}")
+            throw SandboxException.PreferenceKeyException(
+                "Not correct type expected : ${preferenceKey.type} actual : ${value::class}"
+            )
         }
     }
 
@@ -67,7 +73,9 @@ class PreferenceRepositoryImpl(
                 }
             }
         } else {
-            throw SandboxException.PreferenceKeyException("Not correct type expected : ${preferenceKey.type} actual : ${value::class}")
+            throw SandboxException.PreferenceKeyException(
+                "Not correct type expected : ${preferenceKey.type} actual : ${value::class}"
+            )
         }
     }
 
@@ -79,7 +87,9 @@ class PreferenceRepositoryImpl(
                 }
             }
         } else {
-            throw SandboxException.PreferenceKeyException("Not correct type expected : ${preferenceKey.type} actual : ${value::class}")
+            throw SandboxException.PreferenceKeyException(
+                "Not correct type expected : ${preferenceKey.type} actual : ${value::class}"
+            )
         }
     }
 
@@ -91,11 +101,15 @@ class PreferenceRepositoryImpl(
                 }
             }
         } else {
-            throw SandboxException.PreferenceKeyException("Not correct type expected : ${preferenceKey.type} actual : ${value::class}")
+            throw SandboxException.PreferenceKeyException(
+                "Not correct type expected : ${preferenceKey.type} actual : ${value::class}"
+            )
         }
     }
 
-    override suspend fun get(preferenceKey: PreferenceKey, defaultValue: Any): Any = withContext(ioDispatcher) {
+    override suspend fun get(preferenceKey: PreferenceKey, defaultValue: Any): Any = withContext(
+        ioDispatcher
+    ) {
         val allPreferences = dataStore.data.firstOrNull()?.asMap() ?: return@withContext defaultValue
         for (entry in allPreferences) {
             if (preferenceKey.keyName == entry.key.name) return@withContext entry.value

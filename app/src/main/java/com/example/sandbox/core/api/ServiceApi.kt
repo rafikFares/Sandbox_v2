@@ -11,4 +11,3 @@ interface ServiceApi {
         @Path(value = "fileName", encoded = true) fileName: String
     ): Response<List<NetworkItem>>
 }
-

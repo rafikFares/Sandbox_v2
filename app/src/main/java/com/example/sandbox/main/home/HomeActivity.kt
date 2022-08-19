@@ -39,9 +39,12 @@ class HomeActivity : BaseAppcompatActivity() {
     }
 
     private fun initActions() {
-        homeViewModel.failure.observe(this, EventObserver {
-            manageError(it)
-        })
+        homeViewModel.failure.observe(
+            this,
+            EventObserver {
+                manageError(it)
+            }
+        )
 
         fun showInformationNotification(data: InformationAlertView.Information) {
             InformationAlertView(this, data)
@@ -57,7 +60,9 @@ class HomeActivity : BaseAppcompatActivity() {
                             showInformationNotification(
                                 InformationAlertView.Information(
                                     text = StringSource.Res(R.string.already_up_to_data),
-                                    backgroundColor = ColorSource.Res(com.example.uibox.R.color.color_orange)
+                                    backgroundColor = ColorSource.Res(
+                                        com.example.uibox.R.color.color_orange
+                                    )
                                 )
                             )
                         }
@@ -70,12 +75,13 @@ class HomeActivity : BaseAppcompatActivity() {
                             showInformationNotification(
                                 InformationAlertView.Information(
                                     text = StringSource.Res(R.string.updated),
-                                    backgroundColor = ColorSource.Res(com.example.uibox.R.color.color_green)
+                                    backgroundColor = ColorSource.Res(
+                                        com.example.uibox.R.color.color_green
+                                    )
                                 )
                             )
                         }
                         else -> {
-
                         }
                     }
                 }

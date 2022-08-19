@@ -15,7 +15,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-
 private const val SANDBOX_PREFERENCES = "sandbox_preferences"
 
 val appModule = module {
@@ -27,7 +26,6 @@ val appModule = module {
             ioDispatcher
         )
     }
-
 }
 
 private fun providePreferencesDataStore(

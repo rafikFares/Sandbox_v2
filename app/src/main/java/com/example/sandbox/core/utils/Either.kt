@@ -1,6 +1,5 @@
 package com.example.sandbox.core.utils
 
-
 sealed interface Either<out F, out S> {
     data class Success<out S>(val value: S) : Either<Nothing, S>
     data class Failure<out F>(val value: F) : Either<F, Nothing>

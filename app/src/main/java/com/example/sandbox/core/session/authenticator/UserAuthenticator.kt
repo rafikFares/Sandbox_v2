@@ -3,7 +3,6 @@ package com.example.sandbox.core.session.authenticator
 import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.utils.Either
 
-
 interface UserAuthenticator {
 
     data class User(

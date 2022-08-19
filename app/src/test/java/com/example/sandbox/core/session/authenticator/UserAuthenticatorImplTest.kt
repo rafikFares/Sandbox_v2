@@ -12,7 +12,6 @@ import kotlinx.coroutines.runBlocking
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeInstanceOf
 
-
 class UserAuthenticatorImplTest : BaseUnitTest() {
     @MockK
     private lateinit var preferenceRepository: PreferenceRepository

@@ -2,7 +2,6 @@ package com.example.sandbox.core.pagging
 
 import androidx.paging.PagingSource
 import com.example.sandbox.BaseUnitTest
-import com.example.sandbox.core.data.AlbumItem
 import com.example.sandbox.core.data.ImageItem
 import com.example.sandbox.core.exception.SandboxException
 import com.example.sandbox.core.repository.local.LocalRepository
@@ -27,7 +26,6 @@ class ImageItemPagingSourceTest : BaseUnitTest() {
     fun before() {
         imageItemPagingSource = ImageItemPagingSource(localRepository)
     }
-
 
     @Test
     fun loadDataWithRangeSuccess() = runTest {
@@ -78,5 +76,4 @@ class ImageItemPagingSourceTest : BaseUnitTest() {
         page.prevKey shouldBeEqualTo null
         page.data shouldBeEqualTo items
     }
-
 }

@@ -11,8 +11,7 @@ import kotlinx.coroutines.runBlocking
 import org.amshove.kluent.shouldBe
 import org.junit.Test
 
-
-class UserSessionImplTest: BaseUnitTest() {
+class UserSessionImplTest : BaseUnitTest() {
 
     @MockK
     private lateinit var preferenceRepository: PreferenceRepository

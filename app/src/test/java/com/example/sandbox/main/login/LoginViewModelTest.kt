@@ -10,7 +10,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import org.amshove.kluent.shouldBe
 
-
 class LoginViewModelTest : BaseAndroidTest() {
 
     @MockK

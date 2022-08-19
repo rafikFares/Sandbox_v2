@@ -3,7 +3,6 @@ package com.example.sandbox
 import android.content.Context
 import android.util.Log
 import androidx.annotation.StyleRes
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.test.espresso.Espresso

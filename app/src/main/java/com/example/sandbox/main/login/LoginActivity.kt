@@ -54,7 +54,9 @@ class LoginActivity : AppCompatActivity() {
                                 finish()
                             }
                             LoginViewModel.UiState.LoginError -> {
-                                binding.loginPasswordView.showErrorState(StringSource.Res(R.string.login_error_message))
+                                binding.loginPasswordView.showErrorState(
+                                    StringSource.Res(R.string.login_error_message)
+                                )
                             }
                             else -> {
                                 // do nothing
@@ -64,5 +66,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 }

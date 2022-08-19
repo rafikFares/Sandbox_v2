@@ -8,7 +8,7 @@ import org.koin.core.annotation.Single
 
 @Single
 class UserSessionImpl(
-    private val preferenceRepository: PreferenceRepository,
+    private val preferenceRepository: PreferenceRepository
 ) : UserSession {
 
     override suspend fun isUserLoggedIn(): Boolean {
@@ -16,8 +16,9 @@ class UserSessionImpl(
 
         return suspendCancellableCoroutine<Boolean> { contiunuation ->
             val tokenIsValid = token.isNotEmpty()
-            if (contiunuation.isActive)
+            if (contiunuation.isActive) {
                 contiunuation.resume(tokenIsValid)
+            }
         }
     }
 }

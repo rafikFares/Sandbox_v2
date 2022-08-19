@@ -14,14 +14,11 @@ import com.example.sandbox.core.pagging.ImageItemPagingSource
 import com.example.sandbox.core.pagging.DefaultPagingSource
 import com.example.sandbox.core.data.ImageItem
 import com.example.sandbox.core.repository.local.LocalRepository
-import com.example.sandbox.main.home.HomeViewModel
 import com.example.sandbox.main.platform.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
@@ -35,7 +32,7 @@ class ImageViewModel(private val localRepository: LocalRepository) : BaseViewMod
     private val _uiState = MutableSharedFlow<UiState>()
     override val uiState: SharedFlow<UiState> = _uiState
 
-    private val _clickedImageUrl:MutableLiveData<String> = MutableLiveData<String>()
+    private val _clickedImageUrl: MutableLiveData<String> = MutableLiveData<String>()
     val clickedImageUrl: LiveData<String> = _clickedImageUrl
 
     private val _imageItemsPagingSource = MutableLiveData<ImageItemPagingSource>()

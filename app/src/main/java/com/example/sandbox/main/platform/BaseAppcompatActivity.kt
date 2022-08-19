@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseAppcompatActivity : AppCompatActivity() {
 
-    protected fun manageError(exception: SandboxException, okAction: (()-> Unit)? = null) {
+    protected fun manageError(exception: SandboxException, okAction: (() -> Unit)? = null) {
         val message = when (exception) {
             SandboxException.NetworkConnectionException -> {
                 "Network Connection Exception"

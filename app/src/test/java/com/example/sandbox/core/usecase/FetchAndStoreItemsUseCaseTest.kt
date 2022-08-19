@@ -19,7 +19,6 @@ import kotlinx.datetime.Clock
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeInstanceOf
 
-
 @OptIn(ExperimentalCoroutinesApi::class)
 class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
     private lateinit var fetchAndStoreItemsUseCase: FetchAndStoreItemsUseCase
@@ -38,7 +37,11 @@ class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
 
     @BeforeTest
     fun setUp() {
-        fetchAndStoreItemsUseCase = FetchAndStoreItemsUseCase(networkService, localRepository, preferenceRepository)
+        fetchAndStoreItemsUseCase = FetchAndStoreItemsUseCase(
+            networkService,
+            localRepository,
+            preferenceRepository
+        )
     }
 
     @Test
