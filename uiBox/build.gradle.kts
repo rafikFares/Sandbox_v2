@@ -1,17 +1,15 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id(BuildPlugins.library)
+    id(BuildPlugins.kotlinAndroid)
+    kotlin(BuildPlugins.kapt)
 }
 
 android {
-    val rootExtra = rootProject.extra
-
-    compileSdk = rootExtra["compileSdkVersion"] as Int
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
-        minSdk = rootExtra["minSdkVersion"] as Int
-        targetSdk = rootExtra["targetSdkVersion"] as Int
+        minSdk = ConfigData.minSdkVersion
+        targetSdk = ConfigData.targetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -45,23 +43,19 @@ android {
 }
 
 dependencies {
-    val rootExtra = rootProject.extra
-
-    fun getDependency(key: String): String = rootExtra[key] as String
-
-    implementation(getDependency("coreKtx"))
-    implementation(getDependency("appcompat"))
-    implementation(getDependency("material"))
+    implementation(Libs.Default.coreKtx)
+    implementation(Libs.Default.appcompat)
+    implementation(Libs.Default.material)
     // Picasso
-    implementation(getDependency("picasso"))
+    implementation(Libs.Default.picasso)
     // Lottie
-    implementation(getDependency("lottie"))
+    implementation(Libs.Default.lottie)
 
-    testImplementation(getDependency("junit"))
-    testImplementation(getDependency("mockk"))
-    testImplementation(getDependency("robolectric"))
-    testImplementation(getDependency("testCore"))
-    testImplementation(getDependency("kluent"))
-    testImplementation(getDependency("kluentAndroid"))
-    testImplementation(getDependency("kotlinTestJunit"))
+    testImplementation(Libs.Test.junit)
+    testImplementation(Libs.Test.mockk)
+    testImplementation(Libs.Test.robolectric)
+    testImplementation(Libs.Test.testCore)
+    testImplementation(Libs.Test.kluent)
+    testImplementation(Libs.Test.kluentAndroid)
+    testImplementation(Libs.Test.kotlinTestJunit)
 }

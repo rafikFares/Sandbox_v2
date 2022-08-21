@@ -1,39 +1,41 @@
+import Build_gradle.ReporterType
+
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
-    id("io.realm.kotlin")
-    id("kotlinx-serialization")
-    kotlin("kapt")
-    id("org.jlleitschuh.gradle.ktlint")
+    // Application Plugins
+    id(BuildPlugins.application)
+    id(BuildPlugins.kotlinAndroid)
+    id(BuildPlugins.ksp)
+    id(BuildPlugins.realmKotlin)
+    kotlin(BuildPlugins.kapt)
+    kotlin(BuildPlugins.serialization)
+    id(BuildPlugins.ktlint)
 }
 
 android {
-    val rootExtra = rootProject.extra
 
     signingConfigs {
         create("release") {
-            storeFile = file("key/debug.keystore")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
+            storeFile = file(KeyStore.keyStorePath)
+            storePassword = KeyStore.keyStorePassword
+            keyAlias = KeyStore.keyStoreAlias
+            keyPassword = KeyStore.keyStoreKeyPassword
         }
         getByName("debug") {
-            storeFile = file("key/debug.keystore")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
+            storeFile = file(KeyStore.keyStorePath)
+            storePassword = KeyStore.keyStorePassword
+            keyAlias = KeyStore.keyStoreAlias
+            keyPassword = KeyStore.keyStoreKeyPassword
         }
     }
 
-    compileSdk = rootExtra["compileSdkVersion"] as Int
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
         applicationId = "com.example.sandbox"
-        minSdk = rootExtra["minSdkVersion"] as Int
-        targetSdk = rootExtra["targetSdkVersion"] as Int
-        versionCode = rootProject.extra["versionCode"] as Int
-        versionName = rootProject.extra["versionName"] as String
+        minSdk = ConfigData.minSdkVersion
+        targetSdk = ConfigData.targetSdkVersion
+        versionCode = ConfigData.versionCode
+        versionName = ConfigData.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -65,6 +67,7 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
@@ -120,100 +123,96 @@ dependencies {
     // uiBox
     implementation(project(":uiBox"))
 
-    val rootExtra = rootProject.extra
-
-    fun getDependency(key: String): String = rootExtra[key] as String
-
     // Kotlin
-    implementation(getDependency("kotlinStdlib"))
-    implementation(getDependency("coreKtx"))
-    implementation(getDependency("lifecycleRuntimeKtx"))
+    implementation(Libs.Default.kotlinStdlib)
+    implementation(Libs.Default.coreKtx)
+    implementation(Libs.Default.lifecycleRuntimeKtx)
 
     // ui
-    implementation(getDependency("appcompat"))
-    implementation(getDependency("constraintlayout"))
-    implementation(getDependency("material"))
-    implementation(getDependency("rightBottomSheet"))
+    implementation(Libs.Default.appcompat)
+    implementation(Libs.Default.constraintlayout)
+    implementation(Libs.Default.material)
+    implementation(Libs.Default.rightBottomSheet)
 
     // Koin for Android
-    implementation(getDependency("KoinAndroid"))
-    implementation(getDependency("koinAnnotations"))
-    ksp(getDependency("koinKspCompiler"))
+    implementation(Libs.Di.KoinAndroid)
+    implementation(Libs.Di.koinAnnotations)
+    ksp(Libs.Di.koinKspCompiler)
 
     // activity
-    implementation(getDependency("activityKtx"))
-    implementation(getDependency("fragmentKtx"))
+    implementation(Libs.Default.activityKtx)
+    implementation(Libs.Default.fragmentKtx)
 
     // DataStore
-    implementation(getDependency("datastore"))
+    implementation(Libs.Default.datastore)
 
     // Picasso
-    implementation(getDependency("picasso"))
+    implementation(Libs.Default.picasso)
 
     // Serialization
-    implementation(getDependency("serialization"))
-    implementation(getDependency("serializationConverter"))
-    implementation(getDependency("datetime"))
+    implementation(Libs.Default.serialization)
+    implementation(Libs.Default.serializationConverter)
+    implementation(Libs.Default.datetime)
 
     // splash screen
-    implementation(getDependency("splashscreen"))
+    implementation(Libs.Default.splashscreen)
 
     // Pagging
-    testImplementation(getDependency("pagingCommonKtx"))
-    implementation(getDependency("pagingRuntimeKtx"))
+    testImplementation(Libs.Default.pagingCommonKtx)
+    implementation(Libs.Default.pagingRuntimeKtx)
 
     // Navigation
-    implementation(getDependency("navigationFragmentKtx"))
-    implementation(getDependency("navigationUiKtx"))
+    implementation(Libs.Default.navigationFragmentKtx)
+    implementation(Libs.Default.navigationUiKtx)
 
     // realm
-    implementation(getDependency("realm"))
+    implementation(Libs.Default.realm)
 
     // coroutine
-    implementation(getDependency("coroutinesAndroid"))
-    implementation(getDependency("coroutinesCore"))
+    implementation(Libs.Default.coroutinesAndroid)
+    implementation(Libs.Default.coroutinesCore)
 
     // okhttp
-    implementation(getDependency("okhttp"))
-    implementation(getDependency("okhttpLoggingInterceptor"))
+    implementation(Libs.Default.okhttp)
+    implementation(Libs.Default.okhttpLoggingInterceptor)
 
     // retrofit
-    implementation(getDependency("retrofit"))
+    implementation(Libs.Default.retrofit)
 
     // Facebook shimmer
-    implementation(getDependency("shimmer"))
+    implementation(Libs.Default.shimmer)
 
     // Lottie
-    implementation(getDependency("lottie"))
+    implementation(Libs.Default.lottie)
 
     // Leak Canary
-    // debugImplementation(getDependency("leakCanary"))
+    // debugImplementation(Libs.Dev.leakCanary)
 
     // tests
-    testImplementation(getDependency("junit"))
-    testImplementation(getDependency("mockk"))
-    testImplementation(getDependency("robolectric"))
-    testImplementation(getDependency("testCore"))
-    testImplementation(getDependency("koinTest"))
-    testImplementation(getDependency("koinTestJunit4"))
-    testImplementation(getDependency("kluent"))
-    testImplementation(getDependency("kluentAndroid"))
-    testImplementation(getDependency("kotlinTestJunit"))
-    testImplementation(getDependency("coroutinesTest"))
-    testImplementation(getDependency("turbine"))
+    testImplementation(Libs.Test.junit)
+    testImplementation(Libs.Test.mockk)
+    testImplementation(Libs.Test.robolectric)
+    testImplementation(Libs.Test.testCore)
+    testImplementation(Libs.Test.koinTest)
+    testImplementation(Libs.Test.koinTestJunit4)
+    testImplementation(Libs.Test.kluent)
+    testImplementation(Libs.Test.kluentAndroid)
+    testImplementation(Libs.Test.kotlinTestJunit)
+    testImplementation(Libs.Test.coroutinesTest)
+    testImplementation(Libs.Test.turbine)
     // instrumentation test
     debugImplementation(
-        getDependency("fragmentTesting")
+        Libs.AndroidTest.fragmentTesting
     ) {
         exclude(group = "androidx.test", module = "core")
     }
-    androidTestImplementation(getDependency("espressoContrib"))
-    androidTestImplementation(getDependency("runner"))
-    androidTestImplementation(getDependency("espressoIntents"))
-    androidTestImplementation(getDependency("rules"))
-    androidTestImplementation(getDependency("extJunitKtx"))
-    androidTestImplementation(getDependency("extTruth"))
-    androidTestImplementation(getDependency("espressoCore"))
+    androidTestImplementation(Libs.AndroidTest.espressoContrib)
+    androidTestImplementation(Libs.AndroidTest.runner)
+    androidTestImplementation(Libs.AndroidTest.espressoIntents)
+    androidTestImplementation(Libs.AndroidTest.rules)
+    androidTestImplementation(Libs.AndroidTest.extJunitKtx)
+    androidTestImplementation(Libs.AndroidTest.extTruth)
+    androidTestImplementation(Libs.AndroidTest.espressoCore)
 }
 
 typealias ReporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType
