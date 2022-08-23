@@ -1,61 +1,42 @@
 plugins {
-    id(BuildPlugins.library)
-    id(BuildPlugins.kotlinAndroid)
-    kotlin(BuildPlugins.kapt)
+    id("sandboxLibraryScript")
 }
 
 android {
-    compileSdk = ConfigData.compileSdkVersion
-
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdkVersion
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
     buildTypes {
         release {
-            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-    }
 }
 
 dependencies {
-    implementation(Libs.Default.coreKtx)
-    implementation(Libs.Default.appcompat)
-    implementation(Libs.Default.material)
+    implementation(libs.coreKtx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
     // Picasso
-    implementation(Libs.Default.picasso)
+    implementation(libs.picasso)
     // Lottie
-    implementation(Libs.Default.lottie)
+    implementation(libs.lottie)
 
-    testImplementation(Libs.Test.junit)
-    testImplementation(Libs.Test.mockk)
-    testImplementation(Libs.Test.robolectric)
-    testImplementation(Libs.Test.testCore)
-    testImplementation(Libs.Test.kluent)
-    testImplementation(Libs.Test.kluentAndroid)
-    testImplementation(Libs.Test.kotlinTestJunit)
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.testCore)
+    testImplementation(libs.kluent)
+    testImplementation(libs.kluentAndroid)
+    testImplementation(libs.kotlinTestJunit)
 }

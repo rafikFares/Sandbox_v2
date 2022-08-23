@@ -1,43 +1,22 @@
-import Build_gradle.ReporterType
-
+@Suppress(
+    "DSL_SCOPE_VIOLATION",
+    "MISSING_DEPENDENCY_CLASS",
+    "UNRESOLVED_REFERENCE_WRONG_RECEIVER",
+    "FUNCTION_CALL_EXPECTED"
+)
 plugins {
-    // Application Plugins
-    id(BuildPlugins.application)
-    id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.ksp)
-    id(BuildPlugins.realmKotlin)
-    kotlin(BuildPlugins.kapt)
-    kotlin(BuildPlugins.serialization)
-    id(BuildPlugins.ktlint)
+    id("sandboxApplicationScript")
+    id("kotlinx-serialization")
+    alias(libs.plugins.kspPlugin)
+    alias(libs.plugins.realmPlugin)
+    alias(libs.plugins.ktlinPlugin)
+    id("ktlintScript")
 }
 
 android {
-
-    signingConfigs {
-        create("release") {
-            storeFile = file(KeyStore.keyStorePath)
-            storePassword = KeyStore.keyStorePassword
-            keyAlias = KeyStore.keyStoreAlias
-            keyPassword = KeyStore.keyStoreKeyPassword
-        }
-        getByName("debug") {
-            storeFile = file(KeyStore.keyStorePath)
-            storePassword = KeyStore.keyStorePassword
-            keyAlias = KeyStore.keyStoreAlias
-            keyPassword = KeyStore.keyStoreKeyPassword
-        }
-    }
-
-    compileSdk = ConfigData.compileSdkVersion
-
     defaultConfig {
         applicationId = "com.example.sandbox"
-        minSdk = ConfigData.minSdkVersion
-        targetSdk = ConfigData.targetSdkVersion
-        versionCode = ConfigData.versionCode
-        versionName = ConfigData.versionName
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -48,12 +27,10 @@ android {
                 value = project.properties["RELEASE_BASE_URL"].toString()
             )
             manifestPlaceholders["appName"] = "@string/app_name"
-            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             buildConfigField(
@@ -62,9 +39,6 @@ android {
                 value = project.properties["DEBUG_BASE_URL"].toString()
             )
             manifestPlaceholders["appName"] = "@string/app_name_debug"
-            applicationIdSuffix = ".debug"
-            isDebuggable = true
-            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -72,32 +46,15 @@ android {
         viewBinding = true
         dataBinding = true
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
         freeCompilerArgs = listOf(
             "-Xallow-jvm-ir-dependencies",
             "-P",
             "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
         )
     }
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
 
-    applicationVariants.all {
-        val variantName = name
-        sourceSets {
-            getByName("main") {
-                java.srcDir(File("build/generated/ksp/$variantName/kotlin"))
-            }
-        }
-    }
     applicationVariants.all {
         kotlin.sourceSets {
             getByName(name) {
@@ -105,142 +62,98 @@ android {
             }
         }
     }
-    bundle {
-        language {
-            enableSplit = true
-        }
-        density {
-            enableSplit = true
-        }
-        abi {
-            enableSplit = true
-        }
-    }
 }
 
 dependencies {
-
     // uiBox
     implementation(project(":uiBox"))
 
     // Kotlin
-    implementation(Libs.Default.kotlinStdlib)
-    implementation(Libs.Default.coreKtx)
-    implementation(Libs.Default.lifecycleRuntimeKtx)
+    implementation(libs.kotlinStdlib)
+    implementation(libs.coreKtx)
+    implementation(libs.lifecycleRuntimeKtx)
 
     // ui
-    implementation(Libs.Default.appcompat)
-    implementation(Libs.Default.constraintlayout)
-    implementation(Libs.Default.material)
-    implementation(Libs.Default.rightBottomSheet)
+    implementation(libs.appcompat)
+    implementation(libs.constraintlayout)
+    implementation(libs.material)
+    implementation(libs.rightBottomSheet)
 
     // Koin for Android
-    implementation(Libs.Di.KoinAndroid)
-    implementation(Libs.Di.koinAnnotations)
-    ksp(Libs.Di.koinKspCompiler)
+    implementation(libs.koinAndroid)
+    implementation(libs.koinAnnotations)
+    ksp(libs.koinKspCompiler)
 
     // activity
-    implementation(Libs.Default.activityKtx)
-    implementation(Libs.Default.fragmentKtx)
+    implementation(libs.activityKtx)
+    implementation(libs.fragmentKtx)
 
     // DataStore
-    implementation(Libs.Default.datastore)
+    implementation(libs.datastore)
 
     // Picasso
-    implementation(Libs.Default.picasso)
+    implementation(libs.picasso)
 
     // Serialization
-    implementation(Libs.Default.serialization)
-    implementation(Libs.Default.serializationConverter)
-    implementation(Libs.Default.datetime)
+    implementation(libs.serialization)
+    implementation(libs.serializationConverter)
+    implementation(libs.datetime)
 
     // splash screen
-    implementation(Libs.Default.splashscreen)
+    implementation(libs.splashscreen)
 
     // Pagging
-    testImplementation(Libs.Default.pagingCommonKtx)
-    implementation(Libs.Default.pagingRuntimeKtx)
+    testImplementation(libs.pagingCommonKtx)
+    implementation(libs.pagingRuntimeKtx)
 
     // Navigation
-    implementation(Libs.Default.navigationFragmentKtx)
-    implementation(Libs.Default.navigationUiKtx)
+    implementation(libs.navigationFragmentKtx)
+    implementation(libs.navigationUiKtx)
 
     // realm
-    implementation(Libs.Default.realm)
+    implementation(libs.realm)
 
     // coroutine
-    implementation(Libs.Default.coroutinesAndroid)
-    implementation(Libs.Default.coroutinesCore)
+    implementation(libs.coroutinesAndroid)
+    implementation(libs.coroutinesCore)
 
     // okhttp
-    implementation(Libs.Default.okhttp)
-    implementation(Libs.Default.okhttpLoggingInterceptor)
+    implementation(libs.okhttp)
+    implementation(libs.okhttpLoggingInterceptor)
 
     // retrofit
-    implementation(Libs.Default.retrofit)
+    implementation(libs.retrofit)
 
     // Facebook shimmer
-    implementation(Libs.Default.shimmer)
+    implementation(libs.shimmer)
 
     // Lottie
-    implementation(Libs.Default.lottie)
+    implementation(libs.lottie)
 
     // Leak Canary
-    // debugImplementation(Libs.Dev.leakCanary)
+    // debugImplementation(libs.Dev.leakCanary)
 
     // tests
-    testImplementation(Libs.Test.junit)
-    testImplementation(Libs.Test.mockk)
-    testImplementation(Libs.Test.robolectric)
-    testImplementation(Libs.Test.testCore)
-    testImplementation(Libs.Test.koinTest)
-    testImplementation(Libs.Test.koinTestJunit4)
-    testImplementation(Libs.Test.kluent)
-    testImplementation(Libs.Test.kluentAndroid)
-    testImplementation(Libs.Test.kotlinTestJunit)
-    testImplementation(Libs.Test.coroutinesTest)
-    testImplementation(Libs.Test.turbine)
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.testCore)
+    testImplementation(libs.koinTest)
+    testImplementation(libs.koinTestJunit4)
+    testImplementation(libs.kluent)
+    testImplementation(libs.kluentAndroid)
+    testImplementation(libs.kotlinTestJunit)
+    testImplementation(libs.coroutinesTest)
+    testImplementation(libs.turbine)
     // instrumentation test
-    debugImplementation(
-        Libs.AndroidTest.fragmentTesting
-    ) {
+    debugImplementation(libs.fragmentTesting) {
         exclude(group = "androidx.test", module = "core")
     }
-    androidTestImplementation(Libs.AndroidTest.espressoContrib)
-    androidTestImplementation(Libs.AndroidTest.runner)
-    androidTestImplementation(Libs.AndroidTest.espressoIntents)
-    androidTestImplementation(Libs.AndroidTest.rules)
-    androidTestImplementation(Libs.AndroidTest.extJunitKtx)
-    androidTestImplementation(Libs.AndroidTest.extTruth)
-    androidTestImplementation(Libs.AndroidTest.espressoCore)
-}
-
-typealias ReporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType
-
-ktlint {
-    version.set("0.43.1")
-    debug.set(true)
-    verbose.set(true)
-    android.set(true)
-    outputToConsole.set(true)
-    outputColorName.set("RED")
-    ignoreFailures.set(true)
-    enableExperimentalRules.set(true)
-    disabledRules.set(
-        setOf(
-            "final-newline",
-            "import-ordering",
-            "max-line-length",
-            "experimental:argument-list-wrapping"
-        )
-    )
-    reporters {
-        reporter(ReporterType.PLAIN)
-        reporter(ReporterType.CHECKSTYLE)
-        reporter(ReporterType.HTML)
-    }
-    filter {
-        exclude("**/generated/**")
-        include("**/kotlin/**")
-    }
+    androidTestImplementation(libs.espressoContrib)
+    androidTestImplementation(libs.runner)
+    androidTestImplementation(libs.espressoIntents)
+    androidTestImplementation(libs.rules)
+    androidTestImplementation(libs.extJunitKtx)
+    androidTestImplementation(libs.extTruth)
+    androidTestImplementation(libs.espressoCore)
 }
