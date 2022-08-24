@@ -22,12 +22,20 @@ class LoginActivityViewTest : BaseAndroidUiActivityTest<LoginActivity>(LoginActi
         onView(
             withId(com.example.uibox.R.id.userNameContainer)
         ).check(
-            matches(matchers.hasTextInputLayoutHintText(StringSource.Res(com.example.uibox.R.string.username)))
+            matches(
+                matchers.hasTextInputLayoutHintText(
+                    StringSource.Res(com.example.uibox.R.string.username)
+                )
+            )
         )
         onView(
             withId(com.example.uibox.R.id.passwordContainer)
         ).check(
-            matches(matchers.hasTextInputLayoutHintText(StringSource.Res(com.example.uibox.R.string.password)))
+            matches(
+                matchers.hasTextInputLayoutHintText(
+                    StringSource.Res(com.example.uibox.R.string.password)
+                )
+            )
         )
 
         events.setText(com.example.uibox.R.id.userNameField, StringSource.String("Not Admin"))
@@ -37,7 +45,11 @@ class LoginActivityViewTest : BaseAndroidUiActivityTest<LoginActivity>(LoginActi
         onView(
             withId(com.example.uibox.R.id.passwordContainer)
         ).check(
-            matches(matchers.hasTextInputLayoutErrorText(StringSource.Res(com.example.sandbox.R.string.login_error_message)))
+            matches(
+                matchers.hasTextInputLayoutErrorText(
+                    StringSource.Res(com.example.sandbox.R.string.login_error_message)
+                )
+            )
         )
     }
 
@@ -46,12 +58,18 @@ class LoginActivityViewTest : BaseAndroidUiActivityTest<LoginActivity>(LoginActi
         events.clickOnView(com.example.sandbox.R.id.settings)
 
         events.setText(com.example.uibox.R.id.alertTextField, StringSource.String("false_regex"))
-        events.clickOnView(StringSource.Res(com.example.uibox.R.string.confirm).toString(appContext))
+        events.clickOnView(
+            StringSource.Res(com.example.uibox.R.string.confirm).toString(appContext)
+        )
 
         onView(
             withId(com.example.uibox.R.id.alertTextFieldContainer)
         ).check(
-            matches(matchers.hasTextInputLayoutErrorText(StringSource.Res(com.example.sandbox.R.string.settings_fail_message)))
+            matches(
+                matchers.hasTextInputLayoutErrorText(
+                    StringSource.Res(com.example.sandbox.R.string.settings_fail_message)
+                )
+            )
         )
     }
 }

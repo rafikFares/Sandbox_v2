@@ -157,4 +157,5 @@ dependencies {
     androidTestImplementation(libs.extJunitKtx)
     androidTestImplementation(libs.extTruth)
     androidTestImplementation(libs.espressoCore)
+    androidTestImplementation(libs.uiAutomator)
 }
