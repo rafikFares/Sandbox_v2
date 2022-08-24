@@ -11,12 +11,13 @@ plugins {
     alias(libs.plugins.realmPlugin)
     alias(libs.plugins.ktlinPlugin)
     id("ktlintScript")
+    id("sandbox.android.dependencyUpdater")
 }
 
 android {
     defaultConfig {
         applicationId = "com.example.sandbox"
-        testInstrumentationRunner = "androidx.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {

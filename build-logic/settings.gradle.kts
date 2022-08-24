@@ -5,8 +5,9 @@ enableFeaturePreview("VERSION_CATALOGS")
 
 dependencyResolutionManagement {
     repositories {
-        google()
+        gradlePluginPortal()
         mavenCentral()
+        google()
     }
     versionCatalogs {
         create("libs") {

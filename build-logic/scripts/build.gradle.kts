@@ -13,4 +13,14 @@ plugins {
 dependencies {
     implementation(libs.androidGradlePlugin)
     implementation(libs.kotlinGradlePlugin)
+    implementation(libs.versionsPlugin)
+}
+
+gradlePlugin {
+    plugins {
+        register("dependencyUpdater") {
+            id = "sandbox.android.dependencyUpdater"
+            implementationClass = "DependencyUpdatePlugin"
+        }
+    }
 }

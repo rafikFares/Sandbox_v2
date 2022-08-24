@@ -4,7 +4,7 @@ plugins {
 
 android {
     defaultConfig {
-        testInstrumentationRunner = "androidx.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
