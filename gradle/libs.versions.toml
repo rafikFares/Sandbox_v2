@@ -1,102 +1,102 @@
 [versions]
-activityKtx_version = "1.5.1"
+activityKtxVersion = "1.5.1"
 androidGradlePlugin = "7.2.2"
-appcompat_version = "1.5.0"
+appcompatVersion = "1.5.0"
 benManesVersion = "0.41.0"
-constraintlayout_version = "2.1.4"
-converter_version = "0.8.0"
-core_version = "1.8.0"
-coroutinesTest_version = "1.6.4"
-coroutines_version = "1.6.4"
-datastore_version = "1.0.0"
-datetime_version = "0.4.0"
-espresso_version = "3.5.0-alpha07"
-extJunit_version = "1.1.4-alpha07"
-extTruth_version = "1.5.0-alpha07"
-fragmentKtx_version = "1.6.0-alpha01"
-fragmentTesting_version = "1.6.0-alpha01"
-junit_version = "4.13.2"
-kluent_version = "1.68"
-koinTest_version = "3.2.0"
-koin_ksp_version = "1.0.1"
-koin_version = "3.2.0"
+constraintlayoutVersion = "2.1.4"
+converterVersion = "0.8.0"
+coreVersion = "1.8.0"
+coroutinesTestVersion = "1.6.4"
+coroutinesVersion = "1.6.4"
+datastoreVersion = "1.0.0"
+datetimeVersion = "0.4.0"
+espressoVersion = "3.5.0-alpha07"
+extJunitVersion = "1.1.4-alpha07"
+extTruthVersion = "1.5.0-alpha07"
+fragmentKtxVersion = "1.6.0-alpha01"
+fragmentTestingVersion = "1.5.2"
+junitVersion = "4.13.2"
+kluentVersion = "1.68"
+koinTestVersion = "3.2.0"
+koin_kspVersion = "1.0.1"
+koinVersion = "3.2.0"
 kotlinVersion = "1.7.10"
 kspVersion = "1.7.10-1.0.6"
 ktLintVersion = "10.3.0"
-lifecycle_version = "2.5.1"
-lottie_version = "5.2.0"
-material_version = "1.6.1"
-mockk_version = "1.12.7"
-nav_version = "2.5.1"
-okhttp_version = "4.10.0"
-paging_version = "3.1.1"
-picasso_version = "2.8"
+lifecycleVersion = "2.5.1"
+lottieVersion = "5.2.0"
+materialVersion = "1.6.1"
+mockkVersion = "1.12.7"
+navVersion = "2.5.1"
+okhttpVersion = "4.10.0"
+pagingVersion = "3.1.1"
+picassoVersion = "2.8"
 realmVersion = "1.1.0"
-retrofit_version = "2.9.0"
-rightBottomSheet_version = "1.0"
-robolectric_version = "4.8.2"
-rules_version = "1.4.1-alpha07"
-runner_version = "1.5.0-alpha04"
-serialization_version = "1.4.0"
-shimmer_version = "0.5.0"
-splashscreen_version = "1.0.0"
-testCore_version = "1.4.0"
-turbine_version = "0.9.0"
+retrofitVersion = "2.9.0"
+rightBottomSheetVersion = "1.0"
+robolectricVersion = "4.8.2"
+rulesVersion = "1.4.1-alpha07"
+runnerVersion = "1.5.0-alpha04"
+serializationVersion = "1.4.0"
+shimmerVersion = "0.5.0"
+splashscreenVersion = "1.0.0"
+testCoreVersion = "1.4.0"
+turbineVersion = "0.9.0"
 uiAutomatorVersion = "2.2.0"
 
 [libraries]
-activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx_version" }
+activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtxVersion" }
 androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat_version" }
-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout_version" }
-coreKtx = { module = "androidx.core:core-ktx", version.ref = "core_version" }
-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines_version" }
-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines_version" }
-coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest_version" }
-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore_version" }
-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime_version" }
-espressoContrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espresso_version" }
-espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso_version" }
-espressoIntents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espresso_version" }
-extJunitKtx = { module = "androidx.test.ext:junit-ktx", version.ref = "extJunit_version" }
-extTruth = { module = "androidx.test.ext:truth", version.ref = "extTruth_version" }
-fragmentKtx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx_version" }
-fragmentTesting = { module = "androidx.fragment:fragment-testing", version.ref = "fragmentTesting_version" }
-junit = { module = "junit:junit", version.ref = "junit_version" }
-kluent = { module = "org.amshove.kluent:kluent", version.ref = "kluent_version" }
-kluentAndroid = { module = "org.amshove.kluent:kluent-android", version.ref = "kluent_version" }
-koinAndroid = { module = "io.insert-koin:koin-android", version.ref = "koin_version" }
-koinAnnotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin_ksp_version" }
-koinKspCompiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin_ksp_version" }
-koinTest = { module = "io.insert-koin:koin-test", version.ref = "koinTest_version" }
-koinTestJunit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinTest_version" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreVersion" }
+coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesVersion" }
+coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesVersion" }
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTestVersion" }
+datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastoreVersion" }
+datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetimeVersion" }
+espressoContrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espressoVersion" }
+espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoVersion" }
+espressoIntents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espressoVersion" }
+extJunitKtx = { module = "androidx.test.ext:junit-ktx", version.ref = "extJunitVersion" }
+extTruth = { module = "androidx.test.ext:truth", version.ref = "extTruthVersion" }
+fragmentKtx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
+fragmentTesting = { module = "androidx.fragment:fragment-testing", version.ref = "fragmentTestingVersion" }
+junit = { module = "junit:junit", version.ref = "junitVersion" }
+kluent = { module = "org.amshove.kluent:kluent", version.ref = "kluentVersion" }
+kluentAndroid = { module = "org.amshove.kluent:kluent-android", version.ref = "kluentVersion" }
+koinAndroid = { module = "io.insert-koin:koin-android", version.ref = "koinVersion" }
+koinAnnotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin_kspVersion" }
+koinKspCompiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin_kspVersion" }
+koinTest = { module = "io.insert-koin:koin-test", version.ref = "koinTestVersion" }
+koinTestJunit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinTestVersion" }
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinVersion" }
 kotlinSerializationPlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinVersion" }
 kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinVersion" }
 kotlinTestJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlinVersion" }
-lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle_version" }
-lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie_version" }
-material = { module = "com.google.android.material:material", version.ref = "material_version" }
-mockk = { module = "io.mockk:mockk", version.ref = "mockk_version" }
-navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "nav_version" }
-navigationUiKtx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "nav_version" }
-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp_version" }
-okhttpLoggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp_version" }
-pagingCommonKtx = { module = "androidx.paging:paging-common-ktx", version.ref = "paging_version" }
-pagingRuntimeKtx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging_version" }
-picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso_version" }
+lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleVersion" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottieVersion" }
+material = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+navigationFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
+navigationUiKtx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttpVersion" }
+okhttpLoggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttpVersion" }
+pagingCommonKtx = { module = "androidx.paging:paging-common-ktx", version.ref = "pagingVersion" }
+pagingRuntimeKtx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingVersion" }
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picassoVersion" }
 realm = { module = "io.realm.kotlin:library-base", version.ref = "realmVersion" }
-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit_version" }
-rightBottomSheet = { module = "com.github.OKatrych:RightSheetBehavior", version.ref = "rightBottomSheet_version" }
-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric_version" }
-rules = { module = "androidx.test:rules", version.ref = "rules_version" }
-runner = { module = "androidx.test:runner", version.ref = "runner_version" }
-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization_version" }
-serializationConverter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "converter_version" }
-shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer_version" }
-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen_version" }
-testCore = { module = "androidx.test:core", version.ref = "testCore_version" }
-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine_version" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
+rightBottomSheet = { module = "com.github.OKatrych:RightSheetBehavior", version.ref = "rightBottomSheetVersion" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectricVersion" }
+rules = { module = "androidx.test:rules", version.ref = "rulesVersion" }
+runner = { module = "androidx.test:runner", version.ref = "runnerVersion" }
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serializationVersion" }
+serializationConverter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "converterVersion" }
+shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmerVersion" }
+splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreenVersion" }
+testCore = { module = "androidx.test:core", version.ref = "testCoreVersion" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbineVersion" }
 uiAutomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "uiAutomatorVersion" }
 versionsPlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "benManesVersion" }
 

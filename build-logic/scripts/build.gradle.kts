@@ -3,6 +3,9 @@ plugins {
     `kotlin-dsl-precompiled-script-plugins`
     `groovy-gradle-plugin`
 }
+// We set up group and version to make this project available as dependency artifact
+group = "com.example.sandbox.buildlogic"
+version = "0.1"
 
 @Suppress(
     "DSL_SCOPE_VIOLATION",
