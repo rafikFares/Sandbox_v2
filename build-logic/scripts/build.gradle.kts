@@ -25,5 +25,9 @@ gradlePlugin {
             id = "sandbox.android.dependencyUpdater"
             implementationClass = "DependencyUpdatePlugin"
         }
+        register("sandboxJacoco") {
+            id = "sandbox.android.sandboxJacoco"
+            implementationClass = "JacocoPlugin"
+        }
     }
 }

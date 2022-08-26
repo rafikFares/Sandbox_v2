@@ -4,18 +4,13 @@ import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragment
 import com.example.sandbox.BaseAndroidUiFragmentTest
 import com.example.sandbox.R
-import com.example.sandbox.rule.DisableAnimationsRule
 import org.junit.Assert
 import org.junit.FixMethodOrder
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runners.MethodSorters
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class SettingsAlertPopUpTest : BaseAndroidUiFragmentTest<SettingsAlertPopUp>() {
-
-    @get:Rule
-    val disableAnimationsRule = DisableAnimationsRule()
 
     override val fragmentScenario: FragmentScenario<SettingsAlertPopUp>
         get() = launchFragment(themeResId = R.style.Theme_Sandbox)

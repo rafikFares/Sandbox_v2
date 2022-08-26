@@ -8,15 +8,10 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.example.sandbox.BaseAndroidUiFragmentTest
 import com.example.sandbox.R
-import com.example.sandbox.rule.DisableAnimationsRule
 import org.hamcrest.Matchers.not
-import org.junit.Rule
 import org.junit.Test
 
 class ImageFragmentViewTest : BaseAndroidUiFragmentTest<ImageFragment>() {
-
-    @get:Rule
-    val disableAnimationsRule = DisableAnimationsRule()
 
     override val fragmentScenario: FragmentScenario<ImageFragment>
         get() = launchFragmentInContainer(themeResId = R.style.Theme_Sandbox)

@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.ktlinPlugin)
     id("ktlintScript")
     id("sandbox.android.dependencyUpdater")
+    id("sandbox.android.sandboxJacoco")
 }
 
 android {
