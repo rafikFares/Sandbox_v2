@@ -71,7 +71,7 @@ class FetchAndStoreItemsUseCaseTest : BaseUnitTest() {
             networkService.retrieveItems(any())
         } returns Either.Success(emptyList())
         coEvery {
-            localRepository.insertItems(any())
+            localRepository.insertOrIgnoreAll(any())
         } returns Either.Success(true)
 
         val result = fetchAndStoreItemsUseCase.run("")
