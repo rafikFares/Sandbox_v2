@@ -1,21 +1,21 @@
 package com.example.sandbox.core.repository.local.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.sandbox.core.data.ImageItem
-import io.realm.kotlin.types.RealmObject
-import io.realm.kotlin.types.annotations.PrimaryKey
 
 /**
  * Defines an ImageItem DB entity.
  */
-class ItemEntity : RealmObject {
-    var albumId: Int = -1
-
+@Entity(tableName = "items")
+data class ItemEntity(
+    val albumId: Int,
     @PrimaryKey
-    var id: Int = -1
-    var thumbnailUrl: String = ""
-    var title: String = ""
-    var url: String = ""
-}
+    val id: Int,
+    val thumbnailUrl: String,
+    val title: String,
+    val url: String
+)
 
 /**
  * Convert DB results to external objects

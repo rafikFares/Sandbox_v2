@@ -19,11 +19,11 @@ data class NetworkItem(
  * Convert Network results to database objects
  */
 fun NetworkItem.toItemEntity(): ItemEntity {
-    val itemEntity = ItemEntity()
-    itemEntity.albumId = albumId
-    itemEntity.id = id
-    itemEntity.thumbnailUrl = thumbnailUrl
-    itemEntity.title = title
-    itemEntity.url = url
-    return itemEntity
+    return ItemEntity(
+        albumId,
+        id,
+        thumbnailUrl,
+        title,
+        url
+    )
 }
