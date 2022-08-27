@@ -115,6 +115,12 @@ dependencies {
     // realm
     implementation(libs.realm)
 
+    // room
+    implementation(libs.roomRuntime)
+    implementation(libs.roomKtx)
+    implementation(libs.roomPaging)
+    ksp(libs.roomCompilerKsp)
+
     // coroutine
     implementation(libs.coroutinesAndroid)
     implementation(libs.coroutinesCore)
@@ -147,6 +153,9 @@ dependencies {
     testImplementation(libs.kotlinTestJunit)
     testImplementation(libs.coroutinesTest)
     testImplementation(libs.turbine)
+    testImplementation(libs.roomTesting)
+    testImplementation(libs.archCoreTesting)
+
     // instrumentation test
     debugImplementation(libs.fragmentTesting) {
         exclude(group = "androidx.test", module = "core")
