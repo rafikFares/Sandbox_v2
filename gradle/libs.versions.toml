@@ -2,6 +2,7 @@
 activityKtxVersion = "1.5.1"
 androidGradlePlugin = "7.2.2"
 appcompatVersion = "1.5.0"
+archCoreVersion = "2.1.0"
 benManesVersion = "0.41.0"
 constraintlayoutVersion = "2.1.4"
 converterVersion = "0.8.0"
@@ -35,6 +36,8 @@ realmVersion = "1.1.0"
 retrofitVersion = "2.9.0"
 rightBottomSheetVersion = "1.0"
 robolectricVersion = "4.8.2"
+roomPagingVersion = "2.4.3"
+roomVersion = "2.4.3"
 rulesVersion = "1.4.1-alpha07"
 runnerVersion = "1.5.0-alpha04"
 serializationVersion = "1.4.0"
@@ -48,6 +51,7 @@ uiAutomatorVersion = "2.2.0"
 activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtxVersion" }
 androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
+archCoreTesting = { module = "androidx.arch.core:core-testing", version.ref = "archCoreVersion" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreVersion" }
 coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesVersion" }
@@ -91,6 +95,11 @@ realm = { module = "io.realm.kotlin:library-base", version.ref = "realmVersion" 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
 rightBottomSheet = { module = "com.github.OKatrych:RightSheetBehavior", version.ref = "rightBottomSheetVersion" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectricVersion" }
+roomCompilerKsp = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
+roomKtx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
+roomPaging = { module = "androidx.room:room-paging", version.ref = "roomPagingVersion" }
+roomRuntime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
+roomTesting = { module = "androidx.room:room-testing", version.ref = "roomVersion" }
 rules = { module = "androidx.test:rules", version.ref = "rulesVersion" }
 runner = { module = "androidx.test:runner", version.ref = "runnerVersion" }
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serializationVersion" }
