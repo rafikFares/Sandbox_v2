@@ -14,7 +14,7 @@ espressoVersion = "3.5.0-alpha07"
 extJunitVersion = "1.1.4-alpha07"
 extTruthVersion = "1.5.0-alpha07"
 fragmentKtxVersion = "1.6.0-alpha01"
-fragmentTestingVersion = "1.5.2"
+fragmentTestingVersion = "1.6.0-alpha01"
 junitVersion = "4.13.2"
 kluentVersion = "1.68"
 koinTestVersion = "3.2.0"
@@ -40,7 +40,7 @@ runnerVersion = "1.5.0-alpha04"
 serializationVersion = "1.4.0"
 shimmerVersion = "0.5.0"
 splashscreenVersion = "1.0.0"
-testCoreVersion = "1.4.0"
+testCoreVersion = "1.5.0-alpha02"
 turbineVersion = "0.9.0"
 uiAutomatorVersion = "2.2.0"
 
@@ -57,6 +57,8 @@ datastore = { module = "androidx.datastore:datastore-preferences", version.ref =
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetimeVersion" }
 espressoContrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espressoVersion" }
 espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoVersion" }
+espressoIdlingConcurrent = { module = "androidx.test.espresso.idling:idling-concurrent", version.ref = "espressoVersion" }
+espressoIdlingResource = { module = "androidx.test.espresso:espresso-idling-resource", version.ref = "espressoVersion" }
 espressoIntents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espressoVersion" }
 extJunitKtx = { module = "androidx.test.ext:junit-ktx", version.ref = "extJunitVersion" }
 extTruth = { module = "androidx.test.ext:truth", version.ref = "extTruthVersion" }

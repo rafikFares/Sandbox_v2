@@ -2,10 +2,12 @@ import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import gradle.kotlin.dsl.accessors._9bc8e58b7d586f485ad10a9fed6954a3.android
+import gradle.kotlin.dsl.accessors._9bc8e58b7d586f485ad10a9fed6954a3.androidTestImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
@@ -13,7 +15,7 @@ import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
 
-private const val jacocoVersion = "0.8.8"
+private const val jacocoVersion = "0.8.7"
 
 class JacocoPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -34,7 +36,7 @@ private fun Project.configureJacoco(
     android {
         buildTypes {
             debug {
-                isTestCoverageEnabled = true
+                enableUnitTestCoverage = true
             }
         }
     }
@@ -66,7 +68,7 @@ private fun Project.configureJacoco(
 
             classDirectories.setFrom(
                 fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
-                    exclude(coverageExclusions)
+                    exclude(coverageExclusionsDefault)
                 }
             )
 
@@ -90,8 +92,21 @@ private fun Project.configureJacoco(
             excludes = listOf("jdk.internal.*")
         }
     }
+
+    dependencies {
+        androidTestImplementation("org.jacoco:org.jacoco.agent:$jacocoVersion:runtime") // to fix Jacoco missing jars ?
+    }
 }
 
+private val coverageExclusionsDefault = listOf(
+    // Android
+    "**/R.class",
+    "**/R\$*.class",
+    "**/BuildConfig.*",
+    "**/Manifest*.*"
+)
+
+// can't use this ones because it broke androidTests
 private val coverageExclusions = listOf(
     // data binding
     "android/databinding/**/*.class",

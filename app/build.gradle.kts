@@ -151,12 +151,20 @@ dependencies {
     debugImplementation(libs.fragmentTesting) {
         exclude(group = "androidx.test", module = "core")
     }
-    androidTestImplementation(libs.espressoContrib)
+    // Core library
+    androidTestImplementation(libs.testCore)
+    // AndroidJUnitRunner and JUnit Rules
     androidTestImplementation(libs.runner)
-    androidTestImplementation(libs.espressoIntents)
     androidTestImplementation(libs.rules)
+    // Assertions
     androidTestImplementation(libs.extJunitKtx)
     androidTestImplementation(libs.extTruth)
+    // Espresso dependencies
+    androidTestImplementation(libs.espressoContrib)
+    androidTestImplementation(libs.espressoIntents)
     androidTestImplementation(libs.espressoCore)
+    androidTestImplementation(libs.espressoIdlingResource)
+    androidTestImplementation(libs.espressoIdlingConcurrent)
+
     androidTestImplementation(libs.uiAutomator)
 }
