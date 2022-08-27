@@ -2,28 +2,32 @@ package com.example.sandbox.rule
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import org.junit.rules.TestRule
+import org.junit.rules.TestWatcher
 import org.junit.runner.Description
-import org.junit.runners.model.Statement
 
 /**
  * Disable emulator animation during the test,
  * and re-enable animation back after the test
  */
-class DisableAnimationsRule : TestRule {
-    override fun apply(base: Statement, description: Description): Statement {
-        return object : Statement() {
-            override fun evaluate() {
-                // disable animations for test run
-                changeAnimationStatus(enable = false)
-                try {
-                    base.evaluate()
-                } finally {
-                    // enable after test run
-                    changeAnimationStatus(enable = true)
-                }
-            }
-        }
+class DisableAnimationsRule : TestWatcher() {
+    override fun starting(description: Description) {
+        // disable animations for test run
+        disableUiAnimation()
+    }
+
+    override fun finished(description: Description) {
+        // enable after test run
+        enableUiAnimation()
+    }
+
+    fun enableUiAnimation() {
+        println(">>>enableUiAnimation>>>")
+        changeAnimationStatus(enable = true)
+    }
+
+    fun disableUiAnimation() {
+        println(">>>disableUiAnimation>>>")
+        changeAnimationStatus(enable = false)
     }
 
     private fun changeAnimationStatus(enable: Boolean = true) {

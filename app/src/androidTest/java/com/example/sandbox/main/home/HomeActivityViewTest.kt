@@ -5,7 +5,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.filters.LargeTest
 import com.example.sandbox.BaseAndroidUiActivityTest
 import com.example.sandbox.R
 import com.example.sandbox.core.platform.NetworkHandler
@@ -13,7 +12,6 @@ import com.example.uibox.tools.StringSource
 import com.example.uibox.tools.toString
 import org.junit.Test
 
-@LargeTest
 class HomeActivityViewTest : BaseAndroidUiActivityTest<HomeActivity>(HomeActivity::class) {
 
     @Test
