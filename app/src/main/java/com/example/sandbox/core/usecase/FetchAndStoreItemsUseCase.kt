@@ -30,7 +30,7 @@ class FetchAndStoreItemsUseCase(
             result.ifIsSuccessThan { networkItems ->
                 networkItems.map(NetworkItem::toItemEntity)
                     .also {
-                        val insertResult = localRepository.insertItems(it)
+                        val insertResult = localRepository.insertOrIgnoreAll(it)
                         preferenceRepository.save(PreferenceKey.LastFetch, currentTime)
                         return insertResult
                     }
