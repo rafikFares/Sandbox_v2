@@ -8,7 +8,7 @@ sealed class SandboxException : Exception() {
     data class ServerErrorException(override val message: String? = null) : SandboxException()
     data class DatabaseErrorException(override val message: String? = null) : SandboxException()
     data class ElementNotFoundException(
-        val elementName: String,
+        val elementId: Int,
         override val message: String? = null
     ) : SandboxException()
 }

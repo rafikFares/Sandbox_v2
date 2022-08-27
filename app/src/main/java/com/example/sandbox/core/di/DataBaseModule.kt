@@ -1,29 +1,25 @@
 package com.example.sandbox.core.di
 
-import com.example.sandbox.core.database.automaticSchemaMigration
-import com.example.sandbox.core.repository.local.entity.ItemEntity
-import io.realm.kotlin.Realm
-import io.realm.kotlin.RealmConfiguration
+import androidx.room.Room
+import com.example.sandbox.core.repository.local.dao.ItemDao
+import com.example.sandbox.core.repository.local.db.AppDatabase
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-private const val REALM_DB_VERSION = 1L
-private const val REALM_DB_NAME = "sandbox_v2.realm"
+private const val ROOM_DB_NAME = "sandbox_v2_room"
 
 val dataBaseModule = module {
 
-    single<RealmConfiguration> {
-        RealmConfiguration
-            .Builder(
-                schema = setOf(ItemEntity::class)
-            )
-            .name(REALM_DB_NAME)
-            .schemaVersion(REALM_DB_VERSION)
-            .migration(automaticSchemaMigration)
-            .build()
+    single<AppDatabase> {
+        Room.databaseBuilder(
+            androidContext(),
+            AppDatabase::class.java,
+            ROOM_DB_NAME
+        ).build()
     }
 
-    single<Realm> {
-        val realmConfig: RealmConfiguration = get()
-        Realm.open(realmConfig)
+    single<ItemDao> {
+        val db: AppDatabase = get<AppDatabase>()
+        db.itemDao()
     }
 }
