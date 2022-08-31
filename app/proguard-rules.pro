@@ -110,3 +110,8 @@
 -dontwarn com.squareup.okhttp.**
 
 -keep class androidx.test.espresso.**
+# Room
+-keep class androidx.room.RoomDataBase { *; }
+-keep class androidx.room.Room { *; }
+-keep class android.arch.** { *; }
+
