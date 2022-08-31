@@ -6,8 +6,8 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import com.example.sandbox.BaseAndroidUiFragmentTest
 import com.example.sandbox.R
+import com.example.sandbox.fragment.BaseAndroidUiFragmentTest
 import com.example.sandbox.rule.DisableAnimationsRule
 import org.hamcrest.Matchers.not
 import org.junit.Rule

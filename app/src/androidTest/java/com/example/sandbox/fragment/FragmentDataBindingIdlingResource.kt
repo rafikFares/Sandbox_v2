@@ -1,4 +1,4 @@
-package com.example.sandbox
+package com.example.sandbox.fragment
 
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.test.espresso.IdlingResource
-import java.util.UUID
+import java.util.*
 
 /**
  * An espresso idling resource implementation that reports idle status for all data binding
@@ -18,7 +18,7 @@ import java.util.UUID
  * calling [monitorFragment] with a [FragmentScenario], thereby monitoring all bindings in that
  * fragment and any child views.
  */
-class DataBindingIdlingResource<F : Fragment> : IdlingResource {
+class FragmentDataBindingIdlingResource<F : Fragment> : IdlingResource {
     // list of registered callbacks
     private val idlingCallbacks = mutableListOf<IdlingResource.ResourceCallback>()
 
@@ -35,13 +35,13 @@ class DataBindingIdlingResource<F : Fragment> : IdlingResource {
     override fun getName() = "DataBinding $id"
 
     /**
-     * Sets the fragment from a [FragmentScenario] to be used from [DataBindingIdlingResource].
+     * Sets the fragment from a [FragmentScenario] to be used from [FragmentDataBindingIdlingResource].
      */
     fun monitorFragment(fragmentScenario: FragmentScenario<F>) {
         scenario = fragmentScenario
     }
 
-    var scenarioFragment: F? = null
+    var fragment: F? = null
 
     override fun isIdleNow(): Boolean {
         val idle = !getBindings().any { it.hasPendingBindings() }
@@ -56,7 +56,7 @@ class DataBindingIdlingResource<F : Fragment> : IdlingResource {
             wasNotIdle = true
             // check next frame
             scenario.onFragment { fragment ->
-                scenarioFragment = fragment
+                this.fragment = fragment
                 fragment.view?.postDelayed({
                     if (fragment.view != null) {
                         isIdleNow

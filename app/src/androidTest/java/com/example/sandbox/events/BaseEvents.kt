@@ -1,4 +1,4 @@
-package com.example.sandbox
+package com.example.sandbox.events
 
 import android.view.View
 import android.widget.TextView

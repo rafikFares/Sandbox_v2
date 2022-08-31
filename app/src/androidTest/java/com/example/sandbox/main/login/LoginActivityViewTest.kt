@@ -3,7 +3,7 @@ package com.example.sandbox.main.login
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import com.example.sandbox.BaseAndroidUiActivityTest
+import com.example.sandbox.activity.BaseAndroidUiActivityTest
 import com.example.sandbox.rule.DisableAnimationsRule
 import com.example.uibox.tools.StringSource
 import com.example.uibox.tools.toString

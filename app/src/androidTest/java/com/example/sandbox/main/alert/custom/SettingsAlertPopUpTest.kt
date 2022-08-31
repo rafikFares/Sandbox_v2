@@ -2,8 +2,8 @@ package com.example.sandbox.main.alert.custom
 
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragment
-import com.example.sandbox.BaseAndroidUiFragmentTest
 import com.example.sandbox.R
+import com.example.sandbox.fragment.BaseAndroidUiFragmentTest
 import com.example.sandbox.rule.DisableAnimationsRule
 import org.junit.Assert
 import org.junit.FixMethodOrder

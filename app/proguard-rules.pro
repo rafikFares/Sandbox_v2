@@ -109,3 +109,4 @@
 # Picasso
 -dontwarn com.squareup.okhttp.**
 
+-keep class androidx.test.espresso.**

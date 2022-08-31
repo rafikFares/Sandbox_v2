@@ -1,12 +1,15 @@
-package com.example.sandbox
+package com.example.sandbox.activity
 
-import android.app.Activity
 import android.content.Context
+import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.Intents
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.sandbox.events.BaseEvents
+import com.example.sandbox.matcher.BaseMatchers
 import kotlin.reflect.KClass
 import org.junit.After
 import org.junit.Before
@@ -14,12 +17,24 @@ import org.junit.Rule
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-abstract class BaseAndroidUiActivityTest<T : Activity>(activity: KClass<T>) {
+abstract class BaseAndroidUiActivityTest<T : FragmentActivity>(activity: KClass<T>) {
+    private val idlingResource = ActivityDataBindingIdlingResource<T>()
+
+    @get:Rule
+    val activityDataBindingIdlingResourceRule = ActivityDataBindingIdlingResourceRule(idlingResource)
+
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(activity.java)
 
+    protected val scenario: ActivityScenario<T>?
+        get() = activityScenarioRule.scenario
+
     @Before
     fun intentsInit() {
+        checkNotNull(scenario) {
+            Log.e("BaseAndroidUiActivityTest", "scenario is null")
+        }
+        idlingResource.monitorActivity(scenario!!)
         // initialize Espresso Intents capturing
         Intents.init()
     }
@@ -33,9 +48,9 @@ abstract class BaseAndroidUiActivityTest<T : Activity>(activity: KClass<T>) {
     protected val appContext: Context
         get() = InstrumentationRegistry.getInstrumentation().targetContext
 
-    protected val scenario: ActivityScenario<T>
-        get() = activityScenarioRule.scenario
-
     protected val matchers: BaseMatchers = BaseMatchers()
     protected val events: BaseEvents = BaseEvents()
+    protected fun getActivity(): T? {
+        return idlingResource.activity
+    }
 }

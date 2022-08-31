@@ -1,4 +1,4 @@
-package com.example.sandbox
+package com.example.sandbox.fragment
 
 import android.content.Context
 import android.util.Log
@@ -8,6 +8,9 @@ import androidx.fragment.app.testing.FragmentScenario
 import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.sandbox.R
+import com.example.sandbox.events.BaseEvents
+import com.example.sandbox.matcher.BaseMatchers
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -18,10 +21,10 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 abstract class BaseAndroidUiFragmentTest<F : Fragment> {
-    private val idlingResource = DataBindingIdlingResource<F>()
+    private val idlingResource = FragmentDataBindingIdlingResource<F>()
 
     @get:Rule
-    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(idlingResource)
+    val fragmentDataBindingIdlingResourceRule = FragmentDataBindingIdlingResourceRule(idlingResource)
 
     abstract val fragmentScenario: FragmentScenario<F>?
 
@@ -43,6 +46,6 @@ abstract class BaseAndroidUiFragmentTest<F : Fragment> {
     protected val matchers: BaseMatchers = BaseMatchers()
     protected val events: BaseEvents = BaseEvents()
     protected fun getFragment(): F? {
-        return idlingResource.scenarioFragment
+        return idlingResource.fragment
     }
 }
