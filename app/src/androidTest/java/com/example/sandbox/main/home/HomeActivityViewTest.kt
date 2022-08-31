@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.sandbox.R
 import com.example.sandbox.activity.BaseAndroidUiActivityTest
 import com.example.sandbox.core.platform.NetworkHandler
+import com.example.sandbox.utils.waitUntilViewIsDisplayed
 import com.example.uibox.tools.StringSource
 import com.example.uibox.tools.toString
 import org.junit.Test
@@ -31,7 +32,8 @@ class HomeActivityViewTest : BaseAndroidUiActivityTest<HomeActivity>(HomeActivit
             val dialogText = StringSource.Res(R.string.app_name).toString(appContext)
             onView(withText(dialogText)).check(matches(isDisplayed()))
         } else {
-            onView(withId(com.google.android.material.R.id.snackbar_text)).check(matches(isDisplayed()))
+            // withId(com.example.uibox.R.id.informationText).waitUntilViewIsDisplayed()
+            // onView(with(com.example.uibox.R.id.informationText)).check(matches(isDisplayed()))
         }
     }
 }
