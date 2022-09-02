@@ -79,6 +79,7 @@ class HomeViewModel(
     }
 
     fun onRefreshClick() {
+        log("onRefreshClick")
         loadData()
     }
 

@@ -48,7 +48,7 @@ class LoginActivityViewTest : BaseAndroidUiActivityTest<LoginActivity>(LoginActi
 
             events.setText(com.example.uibox.R.id.userNameField, StringSource.String("Not Admin"))
             events.setText(com.example.uibox.R.id.passwordField, StringSource.String("12345678"))
-            events.clickOnView(com.example.sandbox.R.id.loginButton)
+            events.clickOnViewId(com.example.sandbox.R.id.loginButton)
 
             onView(
                 withId(com.example.uibox.R.id.passwordContainer)
@@ -69,10 +69,10 @@ class LoginActivityViewTest : BaseAndroidUiActivityTest<LoginActivity>(LoginActi
         try {
             animationRule.disableUiAnimation()
 
-            events.clickOnView(com.example.sandbox.R.id.settings)
+            events.clickOnViewId(com.example.sandbox.R.id.settings)
 
             events.setText(com.example.uibox.R.id.alertTextField, StringSource.String("false_regex"))
-            events.clickOnView(
+            events.clickOnViewWithText(
                 StringSource.Res(com.example.uibox.R.string.confirm).toString(appContext)
             )
 

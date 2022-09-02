@@ -5,9 +5,9 @@ enableFeaturePreview("VERSION_CATALOGS")
 
 dependencyResolutionManagement {
     repositories {
-        gradlePluginPortal()
-        mavenCentral()
         google()
+        mavenCentral()
+        gradlePluginPortal()
     }
     versionCatalogs {
         create("libs") {
@@ -15,5 +15,5 @@ dependencyResolutionManagement {
         }
     }
 }
-
+rootProject.name = "build-logic"
 include(":scripts")

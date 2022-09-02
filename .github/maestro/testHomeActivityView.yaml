@@ -1,0 +1,54 @@
+appId: com.example.sandbox.debug
+---
+#open quick settings
+- swipe:
+    start: 0, 0
+    end: 0, 500
+- swipe:
+    start: 0, 0
+    end: 0, 500
+
+# enable airplane mode
+- tapOn: "Airplane mode"
+
+# return to home
+- back
+- back
+
+- launchApp
+
+# login
+- tapOn: Username 'admin'
+- inputText: "admin"
+- back
+- tapOn: Password 'admin'
+- inputText: "admin"
+- back
+- swipe:
+    start: 200, 400
+    end: 200, 200
+- tapOn: "login"
+
+# main view
+- assertVisible:
+    text: "OK" 
+- tapOn: "OK"
+
+#open quick settings
+- swipe:
+    start: 0, 0
+    end: 0, 500
+- swipe:
+    start: 0, 0
+    end: 0, 500
+
+# enable wifi
+- tapOn: "wi-fi"
+
+# return to app
+- back
+- back
+
+# refresh
+- tapOn: refreshButton
+- assertVisible: "id: 1"

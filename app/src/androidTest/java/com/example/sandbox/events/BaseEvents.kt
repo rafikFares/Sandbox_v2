@@ -17,11 +17,15 @@ import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
 
 class BaseEvents {
-    fun clickOnView(@IdRes viewId: Int) {
+    fun clickOnViewId(@IdRes viewId: Int) {
         onView(withId(viewId)).perform(click())
     }
 
-    fun clickOnView(text: String) {
+    fun clickOnViewWithText(text: String) {
+        onView(withText(text)).perform(click())
+    }
+
+    fun clickOnViewWithTextResId(@IdRes text: Int) {
         onView(withText(text)).perform(click())
     }
 

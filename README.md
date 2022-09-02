@@ -34,6 +34,7 @@
 - KtLint
 - Jacoco
 - Github Actions
+- Maestro for more Instrumental tests 😍
 - many other things ....
 ## Infos :
 - `uiBox` module is used as a custom views module for the app

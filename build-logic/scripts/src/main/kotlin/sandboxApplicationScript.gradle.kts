@@ -58,6 +58,10 @@ android {
         jvmTarget = DepUtils.Java.jvmTarget
     }
 
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+
     bundle {
         language {
             enableSplit = true

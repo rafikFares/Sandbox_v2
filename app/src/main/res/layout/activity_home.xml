@@ -53,6 +53,7 @@
             android:clickable="true"
             android:elevation="8dp"
             android:focusable="true"
+            android:contentDescription="refreshButton"
             android:onClick="@{() -> viewmodel.onRefreshClick()}"
             android:padding="@dimen/spacing_xs"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,7 +62,7 @@
             app:layout_constraintTop_toTopOf="@id/bottomNavigation"
             app:lottie_autoPlay="true"
             app:lottie_rawRes="@raw/refresh_reload"
-            tools:ignore="ContentDescription" />
+            tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
