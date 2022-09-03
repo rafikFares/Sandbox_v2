@@ -4,10 +4,12 @@ import app.cash.turbine.test
 import com.example.sandbox.BaseAndroidTest
 import com.example.sandbox.MainDispatcherRule
 import com.example.sandbox.core.repository.local.LocalRepository
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeEqualTo
@@ -24,6 +26,9 @@ class ImageViewModelTest : BaseAndroidTest() {
 
     @BeforeTest
     fun setUp() {
+        every {
+            localRepository.getPagingImageItemFlow()
+        } returns emptyFlow()
         imageViewModel = ImageViewModel(localRepository)
     }
 

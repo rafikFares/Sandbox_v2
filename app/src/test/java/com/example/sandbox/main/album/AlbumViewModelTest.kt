@@ -6,10 +6,12 @@ import com.example.sandbox.MainDispatcherRule
 import com.example.sandbox.core.repository.local.LocalRepository
 import com.example.sandbox.core.utils.Either
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.Rule
@@ -26,6 +28,9 @@ class AlbumViewModelTest : BaseAndroidTest() {
 
     @BeforeTest
     fun setUp() {
+        every {
+            localRepository.getPagingAlbumItemFlow()
+        } returns emptyFlow()
         albumViewModel = AlbumViewModel(localRepository)
     }
 
