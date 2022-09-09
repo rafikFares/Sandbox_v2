@@ -1,3 +1,11 @@
+/**
+ * Shortcut to gradle
+ * @param cmd
+ */
+def gradle(String cmd) {
+    sh "./gradlew $cmd"
+}
+
 pipeline {
     agent any
     options {
@@ -10,29 +18,31 @@ pipeline {
                 sh "cat .github/ci-gradle.properties >> gradle.properties"
             }
         }
-        stage('Check KtLint') {
-            steps {
-                sh "./gradlew ktlintCheck --stacktrace"
-            }
-        }
-        stage('Check Android lint') {
-            steps {
-                sh "./gradlew lintDebug --stacktrace"
-            }
-        }
         stage('Run Unit tests') {
             steps {
-                sh "./gradlew testDebugUnitTest --stacktrace"
+                gradle "testDebugUnitTest --stacktrace"
+            }
+        }
+        parallel {
+            stage('Check KtLint') {
+                steps {
+                    gradle "ktlintCheck --stacktrace"
+                }
+            }
+            stage('Check Android lint') {
+                steps {
+                    gradle "lintDebug --stacktrace"
+                }
             }
         }
         stage('Build with Gradle') {
             steps {
-                sh "./gradlew assembleRelease --no-daemon --stacktrace"
+                gradle "assembleRelease --no-daemon --stacktrace"
             }
         }
         stage('Run Jacoco') {
             steps {
-                sh "./gradlew jacocoTestReport --no-configuration-cache --stacktrace"
+                gradle "jacocoTestReport --no-configuration-cache --stacktrace"
             }
         }
         stage('Publish Reports') {
