@@ -1,0 +1,102 @@
+/**
+ * Shortcut to gradle
+ * @param cmd
+ */
+def gradle(String cmd) {
+    sh "./gradlew $cmd"
+}
+
+pipeline {
+    agent any
+    options {
+            // Stop the build early in case of compile or test failures
+            skipStagesAfterUnstable()
+    }
+    stages {
+        stage('Copy Local Properties') {
+            steps {
+                sh "cat .github/ci-gradle.properties >> gradle.properties"
+            }
+        }
+        stage('Run Unit tests') {
+            steps {
+                gradle "testDebugUnitTest --stacktrace"
+            }
+        }
+        parallel {
+            stage('Check KtLint') {
+                steps {
+                    gradle "ktlintCheck --stacktrace"
+                }
+            }
+            stage('Check Android lint') {
+                steps {
+                    gradle "lintDebug --stacktrace"
+                }
+            }
+        }
+        stage('Build with Gradle') {
+            steps {
+                gradle "assembleRelease --no-daemon --stacktrace"
+            }
+        }
+        stage('Run Jacoco') {
+            steps {
+                gradle "jacocoTestReport --no-configuration-cache --stacktrace"
+            }
+        }
+        stage('Publish Reports') {
+            steps {
+              // publish html
+              publishHTML (target: [
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: 'app/build/testCoverage',
+                  reportFiles: 'index.html',
+                  reportName: "Jacoco Report"
+                ])
+              publishHTML (target: [
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: 'app/build/reports/tests/testDebugUnitTest',
+                  reportFiles: 'index.html',
+                  reportName: "App Test Report"
+                ])
+              publishHTML (target: [
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: 'uiBox/build/reports/tests/testDebugUnitTest',
+                  reportFiles: 'index.html',
+                  reportName: "uiBox Test Report"
+                ])
+              publishHTML (target: [
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: 'app/build/reports/tests/testDebugUnitTest',
+                  reportFiles: 'lint-results-debug.html',
+                  reportName: "App Lint Report"
+                ])
+              publishHTML (target: [
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: 'uiBox/build/reports',
+                  reportFiles: 'lint-results-debug.html',
+                  reportName: "uiBox Lint Report"
+                ])
+              publishHTML (target: [
+                  allowMissing: true,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: 'app/build/reports/ktlint',
+                  reportFiles: 'index.html',
+                  reportName: "KtLint Report"
+                ])
+            }
+        }
+    }
+}

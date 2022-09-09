@@ -54,7 +54,7 @@ jobs:
         run: ./gradlew lintDebug --stacktrace
 
       - name: Run Unit tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testDebugUnitTest --stacktrace
 
       - name: Unit Test Report
         uses: asadmansr/android-test-report-action@v1.2.0
@@ -70,7 +70,7 @@ jobs:
               uiBox/build/reports
 
       - name: Build with Gradle
-        run: ./gradlew clean assembleRelease --no-daemon --stacktrace
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
 
       - name: Upload the signed artifact
         uses: actions/upload-artifact@v3
@@ -78,6 +78,16 @@ jobs:
           name: signed-app
           path: app/build/outputs/apk/release/app-release.apk
 
+      - name: Run Jacoco Coverage
+        run: ./gradlew jacocoTestReport --no-configuration-cache --stacktrace
+
+      - name: Upload Coverage reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-reports
+          path: |
+            app/build/testCoverage
 
   androidTest:
     needs: [ build ]
