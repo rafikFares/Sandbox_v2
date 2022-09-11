@@ -13,7 +13,7 @@ object DepUtils {
         const val targetSdkVersion = 32
         const val minSdkVersion = 24
         const val versionCode = 1
-        const val versionName = "0.5.1"
+        const val versionName = "0.6"
     }
 
     object Java {
