@@ -1,11 +1,3 @@
-/**
- * Shortcut to gradle
- * @param cmd
- */
-def gradle(String cmd) {
-    sh "./gradlew $cmd"
-}
-
 pipeline {
     agent any
     options {
@@ -20,29 +12,31 @@ pipeline {
         }
         stage('Run Unit tests') {
             steps {
-                gradle "testDebugUnitTest --stacktrace"
+                sh "./gradlew testDebugUnitTest --stacktrace"
             }
         }
-        parallel {
-            stage('Check KtLint') {
-                steps {
-                    gradle "ktlintCheck --stacktrace"
+        stage('Run Code quality') {
+            parallel {
+                stage('Check KtLint') {
+                    steps {
+                        sh "./gradlew ktlintCheck --stacktrace"
+                    }
                 }
-            }
-            stage('Check Android lint') {
-                steps {
-                    gradle "lintDebug --stacktrace"
+                stage('Check Android lint') {
+                    steps {
+                        sh "./gradlew lintDebug --stacktrace"
+                    }
                 }
             }
         }
         stage('Build with Gradle') {
             steps {
-                gradle "assembleRelease --no-daemon --stacktrace"
+                sh "./gradlew assembleRelease --no-daemon --stacktrace"
             }
         }
         stage('Run Jacoco') {
             steps {
-                gradle "jacocoTestReport --no-configuration-cache --stacktrace"
+                sh "./gradlew jacocoTestReport --no-configuration-cache --stacktrace"
             }
         }
         stage('Publish Reports') {
