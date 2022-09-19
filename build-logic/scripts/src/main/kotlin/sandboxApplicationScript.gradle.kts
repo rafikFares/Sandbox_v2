@@ -29,7 +29,10 @@ android {
         targetSdk = DepUtils.ConfigData.targetSdkVersion
         versionCode = DepUtils.ConfigData.versionCode
         versionName = DepUtils.ConfigData.versionName
+        applicationId = DepUtils.ConfigData.applicationId
     }
+
+    namespace = DepUtils.ConfigData.applicationId
 
     testOptions {
         unitTests {

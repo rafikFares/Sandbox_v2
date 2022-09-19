@@ -14,6 +14,7 @@ object DepUtils {
         const val minSdkVersion = 24
         const val versionCode = 1
         const val versionName = "0.6"
+        const val applicationId = "com.example.sandbox"
     }
 
     object Java {

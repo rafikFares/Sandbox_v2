@@ -1,6 +1,6 @@
 [versions]
 activityKtxVersion = "1.5.1"
-androidGradlePlugin = "7.2.2"
+androidGradlePlugin = "7.3.0"
 appcompatVersion = "1.5.0"
 benManesVersion = "0.41.0"
 constraintlayoutVersion = "2.1.4"

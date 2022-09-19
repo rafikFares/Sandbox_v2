@@ -17,7 +17,6 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = "com.example.sandbox"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

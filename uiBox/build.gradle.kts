@@ -21,6 +21,7 @@ android {
         viewBinding = true
         dataBinding = true
     }
+    namespace = "com.example.uibox"
 }
 
 dependencies {
