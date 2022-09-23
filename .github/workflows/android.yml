@@ -51,7 +51,7 @@ jobs:
         run: ./gradlew ktlintCheck --stacktrace
 
       - name: Check Android lint
-        run: ./gradlew lintDebug --stacktrace
+        run: ./gradlew lintReportDebug --stacktrace
 
       - name: Run Unit tests
         run: ./gradlew testDebugUnitTest --stacktrace
@@ -68,6 +68,11 @@ jobs:
           path: |
               app/build/reports
               uiBox/build/reports
+
+      - uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: app/build/reports/lint-results-debug.sarif
+          category: androidLinter
 
       - name: Build with Gradle
         run: ./gradlew assembleRelease --no-daemon --stacktrace

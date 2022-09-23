@@ -73,6 +73,11 @@ android {
         jvmTarget = DepUtils.Java.jvmTarget
     }
 
+    lint {
+        sarifReport = true
+        checkDependencies = true // to merge reports from sub modules
+    }
+
     packagingOptions {
         resources.excludes.add("META-INF/*")
     }

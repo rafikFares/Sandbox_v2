@@ -20,6 +20,7 @@ ktlint {
         reporter("plain")
         reporter("checkstyle")
         reporter("html")
+        reporter("sarif")
     }
     filter {
         exclude("**/generated/**")
