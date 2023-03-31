@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 @Suppress(
     "DSL_SCOPE_VIOLATION",
     "MISSING_DEPENDENCY_CLASS",
@@ -40,6 +42,13 @@ android {
                 value = project.properties["DEBUG_BASE_URL"].toString()
             )
             manifestPlaceholders["appName"] = "@string/app_name_debug"
+        }
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+            proguardFiles("baseline-profile_proguard-rule.pro")
         }
     }
 
@@ -130,6 +139,9 @@ dependencies {
 
     // Lottie
     implementation(libs.lottie)
+
+    // Baseline profile
+    implementation(libs.profileinstaller)
 
     // Leak Canary
     // debugImplementation(libs.Dev.leakCanary)
