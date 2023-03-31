@@ -1,8 +1,8 @@
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.gradle.internal.tasks.factory.dependsOn
-import gradle.kotlin.dsl.accessors._bf5355cea62077187e215896f3ff9977.android
-import gradle.kotlin.dsl.accessors._bf5355cea62077187e215896f3ff9977.androidTestImplementation
+import gradle.kotlin.dsl.accessors._5a0acc637377881228018c78f84444a8.android
+import gradle.kotlin.dsl.accessors._5a0acc637377881228018c78f84444a8.androidTestImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test

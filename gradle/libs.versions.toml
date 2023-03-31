@@ -1,6 +1,6 @@
 [versions]
 activityKtxVersion = "1.5.1"
-androidGradlePlugin = "7.3.0"
+androidGradlePlugin = "7.4.2"
 appcompatVersion = "1.5.0"
 benManesVersion = "0.41.0"
 constraintlayoutVersion = "2.1.4"
@@ -10,7 +10,7 @@ coroutinesTestVersion = "1.6.4"
 coroutinesVersion = "1.6.4"
 datastoreVersion = "1.0.0"
 datetimeVersion = "0.4.0"
-espressoVersion = "3.5.0-alpha07"
+espressoVersion = "3.5.1"
 extJunitVersion = "1.1.4-alpha07"
 extTruthVersion = "1.5.0-alpha07"
 fragmentKtxVersion = "1.6.0-alpha01"
@@ -43,6 +43,8 @@ splashscreenVersion = "1.0.0"
 testCoreVersion = "1.5.0-alpha02"
 turbineVersion = "0.9.0"
 uiAutomatorVersion = "2.2.0"
+benchmarkMacroJunitVersion = "1.1.1"
+profileinstallerVersion = "1.2.0"
 
 [libraries]
 activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtxVersion" }
@@ -101,6 +103,8 @@ testCore = { module = "androidx.test:core", version.ref = "testCoreVersion" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbineVersion" }
 uiAutomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "uiAutomatorVersion" }
 versionsPlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "benManesVersion" }
+benchmarkMacro = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "benchmarkMacroJunitVersion" }
+profileinstaller = { module = "androidx.profileinstaller:profileinstaller", version.ref = "profileinstallerVersion" }
 
 [plugins]
 kspPlugin = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }

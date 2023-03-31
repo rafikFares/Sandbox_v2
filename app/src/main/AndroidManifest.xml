@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name="com.example.sandbox.SandboxApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,30 +16,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sandbox"
-        android:name="com.example.sandbox.SandboxApplication"
         tools:targetApi="32">
+        <profileable android:shell="true"/>
 
         <activity
             android:name="com.example.sandbox.main.start.StartActivity"
-            android:theme="@style/Theme.App.Starting"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.App.Starting"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".main.home.HomeActivity"
-            android:theme="@style/Theme.Sandbox"
-            android:exported="false">
-        </activity>
-        <activity android:name=".main.login.LoginActivity"
-            android:theme="@style/Theme.Sandbox"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.Sandbox"></activity>
+        <activity
+            android:name=".main.login.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Sandbox" />
     </application>
 
 </manifest>
